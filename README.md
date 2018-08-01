@@ -12,7 +12,7 @@
 
 - [适配器模式](https://github.com/Jouryjc/blog/issues/5)
 - [状态模式](https://github.com/Jouryjc/blog/issues/6)
-- [装饰者模式]
+- [装饰者模式](https://github.com/Jouryjc/blog/issues/7)
 - [中介者模式]
 - [职责链模式]
 - [享元模式]
