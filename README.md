@@ -13,8 +13,8 @@
 - [适配器模式](https://github.com/Jouryjc/blog/issues/5)
 - [状态模式](https://github.com/Jouryjc/blog/issues/6)
 - [装饰者模式](https://github.com/Jouryjc/blog/issues/7)
-- [中介者模式]
-- [职责链模式]
+- [中介者模式](https://github.com/Jouryjc/blog/issues/8)
+- [职责链模式](https://github.com/Jouryjc/blog/issues/9)
 - [享元模式]
 - [模板方式模式]
 - [组合模式]
