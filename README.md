@@ -15,8 +15,8 @@
 - [装饰者模式](https://github.com/Jouryjc/blog/issues/7)
 - [中介者模式](https://github.com/Jouryjc/blog/issues/8)
 - [职责链模式](https://github.com/Jouryjc/blog/issues/9)
-- [享元模式]
-- [模板方式模式]
+- [享元模式](https://github.com/Jouryjc/blog/issues/10)
+- [模板方式模式](https://github.com/Jouryjc/blog/issues/11)
 - [组合模式]
 - [命令模式]
 - [发布-订阅模式]
