@@ -17,9 +17,9 @@
 - [职责链模式](https://github.com/Jouryjc/blog/issues/9)
 - [享元模式](https://github.com/Jouryjc/blog/issues/10)
 - [模板方式模式](https://github.com/Jouryjc/blog/issues/11)
-- [组合模式]
-- [命令模式]
-- [发布-订阅模式]
+- [组合模式](https://github.com/Jouryjc/blog/issues/12)
+- [命令模式](https://github.com/Jouryjc/blog/issues/13)
+- [发布-订阅模式](https://github.com/Jouryjc/blog/issues/14)
 - [迭代器模式]
 - [代理模式]
 - [策略模式]
