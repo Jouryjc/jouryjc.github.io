@@ -20,7 +20,7 @@
 - [组合模式](https://github.com/Jouryjc/blog/issues/12)
 - [命令模式](https://github.com/Jouryjc/blog/issues/13)
 - [发布-订阅模式](https://github.com/Jouryjc/blog/issues/14)
-- [迭代器模式]
+- [迭代器模式](https://github.com/Jouryjc/blog/issues/15)
 - [代理模式]
 - [策略模式]
 - [单例模式]
