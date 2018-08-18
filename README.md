@@ -24,3 +24,9 @@
 - [代理模式](https://github.com/Jouryjc/blog/issues/16)
 - [策略模式](https://github.com/Jouryjc/blog/issues/17)
 - [单例模式](https://github.com/Jouryjc/blog/issues/18)
+
+#### 设计原则
+
+- [单一职责原则]待完成
+- [最少知识原则]待完成
+- [开放-封闭原则]待完成
