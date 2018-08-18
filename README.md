@@ -22,5 +22,5 @@
 - [发布-订阅模式](https://github.com/Jouryjc/blog/issues/14)
 - [迭代器模式](https://github.com/Jouryjc/blog/issues/15)
 - [代理模式](https://github.com/Jouryjc/blog/issues/16)
-- [策略模式]
-- [单例模式]
+- [策略模式](https://github.com/Jouryjc/blog/issues/17)
+- [单例模式](https://github.com/Jouryjc/blog/issues/18)
