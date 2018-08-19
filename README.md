@@ -16,7 +16,7 @@
 - [中介者模式](https://github.com/Jouryjc/blog/issues/8)
 - [职责链模式](https://github.com/Jouryjc/blog/issues/9)
 - [享元模式](https://github.com/Jouryjc/blog/issues/10)
-- [模板方式模式](https://github.com/Jouryjc/blog/issues/11)
+- [模板模式](https://github.com/Jouryjc/blog/issues/11)
 - [组合模式](https://github.com/Jouryjc/blog/issues/12)
 - [命令模式](https://github.com/Jouryjc/blog/issues/13)
 - [发布-订阅模式](https://github.com/Jouryjc/blog/issues/14)
@@ -26,7 +26,4 @@
 - [单例模式](https://github.com/Jouryjc/blog/issues/18)
 
 #### 设计原则
-
-- [单一职责原则]待完成
-- [最少知识原则]待完成
-- [开放-封闭原则]待完成
+- [Javascript常用的设计原则](https://github.com/Jouryjc/blog/issues/19)
