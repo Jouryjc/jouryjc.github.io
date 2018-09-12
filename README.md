@@ -2,6 +2,9 @@
 
 - 好记性不如烂笔头
 
+#### 工作闲谈
+- [vue那些你懵XX的问题]
+
 #### 代码规范
 
 - [vue最佳实践](https://github.com/Jouryjc/blog/issues/1)
