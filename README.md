@@ -2,9 +2,6 @@
 
 - 好记性不如烂笔头
 
-#### 工作闲谈
-- [vue那些你懵XX的问题]
-
 #### 代码规范
 
 - [vue最佳实践](https://github.com/Jouryjc/blog/issues/1)
@@ -30,6 +27,9 @@
 
 #### 设计原则
 - [Javascript常用的设计原则](https://github.com/Jouryjc/blog/issues/19)
+
+#### Vue原理系列
+- [computed的原理](https://github.com/Jouryjc/blog/issues/20)
 
 #### 你不知道系列
 
