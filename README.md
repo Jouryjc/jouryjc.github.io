@@ -30,6 +30,7 @@
 
 #### Vue原理系列
 - [computed的原理](https://github.com/Jouryjc/blog/issues/20)
+- [nextTick的原理](https://github.com/Jouryjc/blog/issues/21)
 
 #### 你不知道系列
 
