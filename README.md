@@ -2,13 +2,13 @@
 
 > 好记性不如烂笔头
 
-### 代码规范
+#### 代码规范
 
 - [vue最佳实践](https://github.com/Jouryjc/blog/issues/1)
 - [编写可维护的Javascript](https://github.com/Jouryjc/blog/issues/2)
 
 
-### 设计模式
+#### 设计模式
 
 - [适配器模式](https://github.com/Jouryjc/blog/issues/5)
 - [状态模式](https://github.com/Jouryjc/blog/issues/6)
@@ -25,18 +25,18 @@
 - [策略模式](https://github.com/Jouryjc/blog/issues/17)
 - [单例模式](https://github.com/Jouryjc/blog/issues/18)
 
-### 设计原则
+#### 设计原则
 - [Javascript常用的设计原则](https://github.com/Jouryjc/blog/issues/19)
 
-### Vue原理系列
+#### Vue原理系列
 - [computed的原理](https://github.com/Jouryjc/blog/issues/20)
 - [nextTick的原理](https://github.com/Jouryjc/blog/issues/21)
 - [vue数据驱动原理分析](https://github.com/Jouryjc/blog/issues/22)
 
-### 你不知道系列
+#### 你不知道系列
 - [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
 
-### 前端工程化
+#### 前端工程化
 
 ### 他人优秀文章系列
 > 取其精华，弃其糟粕；
