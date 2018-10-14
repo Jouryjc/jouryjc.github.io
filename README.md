@@ -43,8 +43,6 @@
 > 前车之鉴，后车之覆；
 > 既然看的那么多，为何不收集起来，需要时直接查！
 
-### 他人优秀文章系列
-
 #### 前端基础干货
 - [js 数组详细操作方法及解析合集](https://segmentfault.com/a/1190000015111104)
 - [前端布局基础概述](https://mp.weixin.qq.com/s/-LcNZWFFty2lWuND6uuNNA)
