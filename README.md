@@ -34,5 +34,6 @@
 - [vue数据驱动原理分析](https://github.com/Jouryjc/blog/issues/22)
 
 #### 你不知道系列
+- [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
 
 #### 前端工程化
