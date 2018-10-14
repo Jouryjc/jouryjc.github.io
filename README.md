@@ -53,7 +53,7 @@
 - [网站性能优化实战——从12.67s到1.06s的故事](https://zhuanlan.zhihu.com/p/35224473?utm_medium=social&utm_source=wechat_session&wechatShare=1)
 
 #### 计算机基础干货
-- [底层原理】字符编码笔记：ASCII，Unicode 和 UTF-8](https://mp.weixin.qq.com/s/W2esUPTSicdIwzxJIyoBjg)
+- [【底层原理】字符编码笔记：ASCII，Unicode 和 UTF-8](https://mp.weixin.qq.com/s/W2esUPTSicdIwzxJIyoBjg)
 - [什么是TCP/IP协议？](https://mp.weixin.qq.com/s/33FK5IuGq2da-O1xgS1AKA)
 - [Linux 运维人员最常用 150 个命令汇总](https://mp.weixin.qq.com/s/B-GokonTqWotXlSloLGv2Q)
 - [http基础](http://www.cnblogs.com/xiaohuochai/p/6392010.html)
