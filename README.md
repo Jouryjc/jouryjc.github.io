@@ -32,6 +32,7 @@
 - [computed的原理](https://github.com/Jouryjc/blog/issues/20)
 - [nextTick的原理](https://github.com/Jouryjc/blog/issues/21)
 - [vue数据驱动原理分析](https://github.com/Jouryjc/blog/issues/22)
+- [组件VNode原理分析](https://github.com/Jouryjc/blog/issues/24)
 
 #### 你不知道系列
 - [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
