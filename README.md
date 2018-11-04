@@ -27,6 +27,7 @@
 
 #### 设计原则
 - [Javascript常用的设计原则](https://github.com/Jouryjc/blog/issues/19)
+- [每个Web开发者都应该知道的SOLID原则](https://mp.weixin.qq.com/s/GFABaqzGKloPDZZu-Tc1jQ)
 
 #### Vue原理系列
 - [computed的原理](https://github.com/Jouryjc/blog/issues/20)
@@ -71,6 +72,9 @@
 #### 深入系列
 - [深入了解JavaScript引擎精华](https://mp.weixin.qq.com/s/3Nnvnl7QLbHI7CPb-H3pMQ)
 - [从Chrome源码看浏览器如何加载资源](https://fed.renren.com/2017/10/29/chrome-fetch-resource/)
+- [图解浏览器的基本工作原理](https://mp.weixin.qq.com/s/cb8VJOmAB1Yrv-ct4jJ3JQ)
+- [JavaScript引擎分析](https://mp.weixin.qq.com/s/LQrCxIIiQNXtgQPlEq7new)
+
 
 #### 代码技巧
 - [五个小技巧让你写出更好的 JavaScript 条件语句](https://mp.weixin.qq.com/s/V4fTknn11pUENn0MEMzObA)
