@@ -1,6 +1,6 @@
-## Jour学习笔记
+## Jour学习笔记:notebook:
 
-> 好记性不如烂笔头
+> 好记性不如烂笔头 :black_nib::black_nib::black_nib:
 
 #### 代码规范
 
