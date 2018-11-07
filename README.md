@@ -34,6 +34,7 @@
 - [nextTick的原理](https://github.com/Jouryjc/blog/issues/21)
 - [vue数据驱动原理分析](https://github.com/Jouryjc/blog/issues/22)
 - [组件VNode原理分析](https://github.com/Jouryjc/blog/issues/24)
+- [响应式原理分析](https://github.com/Jouryjc/blog/issues/27)
 
 #### 你不知道系列
 - [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
@@ -45,9 +46,7 @@
 
 > 取其精华，弃其糟粕；
 
-> 前车之鉴，后车之覆；
-
-> 既然看的那么多，为何不收集起来，需要时直接查！
+> 前车之鉴，后车之覆！
 
 #### 前端基础干货
 - [js 数组详细操作方法及解析合集](https://segmentfault.com/a/1190000015111104)
