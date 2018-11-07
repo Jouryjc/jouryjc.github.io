@@ -7,9 +7,7 @@
 - [vue最佳实践](https://github.com/Jouryjc/blog/issues/1)
 - [编写可维护的Javascript](https://github.com/Jouryjc/blog/issues/2)
 
-
 #### 设计模式
-
 - [适配器模式](https://github.com/Jouryjc/blog/issues/5)
 - [状态模式](https://github.com/Jouryjc/blog/issues/6)
 - [装饰者模式](https://github.com/Jouryjc/blog/issues/7)
@@ -27,7 +25,6 @@
 
 #### 设计原则
 - [Javascript常用的设计原则](https://github.com/Jouryjc/blog/issues/19)
-- [每个Web开发者都应该知道的SOLID原则](https://mp.weixin.qq.com/s/GFABaqzGKloPDZZu-Tc1jQ)
 
 #### Vue原理系列
 - [computed的原理](https://github.com/Jouryjc/blog/issues/20)
@@ -39,20 +36,19 @@
 #### 你不知道系列
 - [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
 
-#### 前端工程化
-
 
 ### 他人优秀文章系列
 
-> 取其精华，弃其糟粕；
-
-> 前车之鉴，后车之覆！
+> 取其精华，弃其糟粕；前车之鉴，后车之覆！
 
 #### 前端基础干货
 - [js 数组详细操作方法及解析合集](https://segmentfault.com/a/1190000015111104)
 - [前端布局基础概述](https://mp.weixin.qq.com/s/-LcNZWFFty2lWuND6uuNNA)
 - [12个HTML和CSS必须知道的重点难点问题](https://mp.weixin.qq.com/s/L0ieCEVONoSnB9lPGyWq5g)
 - [一劳永逸的搞定 flex 布局](https://juejin.im/post/58e3a5a0a0bb9f0069fc16bb)
+
+#### 前端工程化
+- [让你的Webpack起飞—考拉会员后台Webpack优化实战](https://zhuanlan.zhihu.com/p/42465502)
 
 #### 前端性能优化
 - [网站性能优化实战——从12.67s到1.06s的故事](https://zhuanlan.zhihu.com/p/35224473?utm_medium=social&utm_source=wechat_session&wechatShare=1)
@@ -79,6 +75,7 @@
 - [五个小技巧让你写出更好的 JavaScript 条件语句](https://mp.weixin.qq.com/s/V4fTknn11pUENn0MEMzObA)
 - [浅谈前端工程师的代码素养](https://mp.weixin.qq.com/s/B19y5ekDSH2U5TQ6gPPh4Q)
 - [如何优雅的编写JavaScript代码](https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247485523&amp;idx=1&amp;sn=030231f1242c2ecb8dca1f6517690595&source=41#wechat_redirect)
+- [每个Web开发者都应该知道的SOLID原则](https://mp.weixin.qq.com/s/GFABaqzGKloPDZZu-Tc1jQ)
 
 #### 其他
 - [终于有人把云计算、大数据和人工智能讲明白了！](https://mp.weixin.qq.com/s/jEfNk-Pr6rJmz2KWDohkKA)
