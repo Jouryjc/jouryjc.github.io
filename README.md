@@ -33,6 +33,7 @@
 - [组件VNode原理分析](https://github.com/Jouryjc/blog/issues/24)
 - [响应式原理分析](https://github.com/Jouryjc/blog/issues/27)
 - [依赖收集原理](https://github.com/Jouryjc/blog/issues/28)
+- [派发更新原理](https://github.com/Jouryjc/blog/issues/29)
 
 #### 你不知道系列
 - [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
