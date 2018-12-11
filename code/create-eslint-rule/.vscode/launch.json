@@ -1,0 +1,24 @@
+{
+    "version": "0.0.1",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach by Process ID",
+            "processId": "${command:PickProcess}"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "eslint-rules",
+            "program": "${workspaceFolder}/node_modules/eslint/bin/eslint.js",
+            "args": [
+                "--rulesdir",
+                "eslint-rules",
+                "--ext",
+                ".js",
+                "src/*.js"
+            ]
+        }
+    ]
+}

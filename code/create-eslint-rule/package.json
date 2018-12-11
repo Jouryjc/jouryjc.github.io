@@ -1,0 +1,14 @@
+{
+  "name": "create-eslint-rule",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/main.js",
+  "scripts": {
+    "lint": "node node_modules/eslint/bin/eslint.js --rulesdir eslint-rules --ext .js src/*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^5.10.0"
+  }
+}
