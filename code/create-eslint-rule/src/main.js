@@ -1,5 +1,12 @@
-let a = require('./a').a;
-let b = require('./B');
+function a() {
+    console.log('aaa');
+}
 
-console.log(a);
-console.log(b);
+var b = function () {
+    console.log('bbb');
+}
+
+var c = function c() {
+    console.log('ccc'); var a = 1; var b = 3;
+    var sad = 1;
+}

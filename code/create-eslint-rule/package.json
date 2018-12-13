@@ -4,7 +4,8 @@
   "description": "",
   "main": "./src/main.js",
   "scripts": {
-    "lint": "node node_modules/eslint/bin/eslint.js --rulesdir eslint-rules --ext .js src/*.js"
+    "lint": "node node_modules/eslint/bin/eslint.js --rulesdir eslint-rules --ext .js src/*.js",
+    "test": "node ./test/fn-max-words.js"
   },
   "author": "",
   "license": "ISC",
