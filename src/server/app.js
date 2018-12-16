@@ -1,26 +1,12 @@
 const express = require('express')
-const logger = require('morgan')
 const router = require('./router/index')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-
+const middleware = require('./middleware')
 const app = express()
 
-app.use(logger('dev'))
+// 中间件，包含日志、响应数据处理等
+middleware(app)
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-    extended: true
-}))
-
-app.use(cookieParser())
-
-app.use('/user', router)
-
-app.use((req, res, next) => {
-    let err = new Error('Not Found')
-    err.status = 404;
-    next(err)
-})
+// 路由处理
+router(app)
 
 module.exports = app

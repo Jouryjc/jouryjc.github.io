@@ -1,4 +1,5 @@
 node_modules
 .vscode
-dist/
-package-lock.json
+src/server/middleware/log/access.log
+_book
+.idea

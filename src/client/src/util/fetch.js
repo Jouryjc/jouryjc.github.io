@@ -2,7 +2,8 @@ import axios from 'axios'
 import qs from 'qs'
 import { Message } from 'element-ui'
 
-const PREFIX = '/api/'
+const PREFIX = '/api/',
+    TIMEOUT = 300000;
 
 axios.defaults.withCredentials = true
 
@@ -48,21 +49,19 @@ function checkCode(res) {
 export default {
     get(url, params) {
         if (!url) return
-        return axios({
-            method: 'get',
-            url: PREFIX + url,
+        return axios.get(PREFIX + url, {
             params,
-            timeout: 30000
+            timeout: TIMEOUT
         }).then(checkStatus).then(checkCode)
     },
-    
+
     post(url, data) {
         if (!url) return
         return axios({
             method: 'post',
             url: PREFIX + url,
             data: data,
-            timeout: 30000
+            timeout: TIMEOUT
         }).then(checkStatus).then(checkCode)
     },
 
@@ -70,7 +69,7 @@ export default {
         if (!url) return
         return axios.delete(PREFIX + url, {
             data: data,
-            timeout: 30000
+            timeout: TIMEOUT
         }).then(checkStatus).then(checkCode)
     },
 
@@ -78,7 +77,7 @@ export default {
         if (!url) return
         return axios.put(PREFIX + url, {
             data: data,
-            timeout: 30000
+            timeout: TIMEOUT
         }).then(checkStatus).then(checkCode)
     }
 }

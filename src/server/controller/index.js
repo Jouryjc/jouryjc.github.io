@@ -1,5 +1,4 @@
 const userModel = require('../models/user.js')
-const chalk = require('chalk')
 
 module.exports = {
 
@@ -9,62 +8,52 @@ module.exports = {
         try {
             let data = await userModel.find({}, (err) => {
                 if (err) {
-                    console.log(chalk.red(`查询用户列表有误，${err}`))
+                    res.fail(`查询用户列表有误，${err}`)
                 }
             });
 
-            return res.send({
-                status: 200,
-                data: data
-            })
+            return res.success(data)
         } catch (e) {
-            return res.send(e)
+            return res.fail(e)
         }
 
     },
 
     // 添加用户
     async addUser(req, res) {
-        let paramsData = req.body;
+        let paramsData = req.body
+
         try {
             let data = await userModel.create(paramsData)
-            res.send({
-                status: 200,
-                data: data
-            })
+
+            res.success(data)
         } catch (e) {
-            res.send(e)
+            res.fail(e)
         }
     },
 
     // 删除用户
     async delUser(req, res) {
         try {
-            let data = await userModel.deleteOne({ _id: req.body._id})
-            res.send({
-                status: 200,
-                data: data
-            })
+            let data = await userModel.deleteOne({ _id: req.body._id })
+            res.success(data)
         } catch (e) {
-            req.send(e)
+            req.fail(e)
         }
     },
 
     // 更新用户信息
     async updateUserInfo(req, res) {
-        let paramsData = req.body.data;
-        console.log(paramsData)
+        let paramsData = req.body.data
+
         try {
             let data = await userModel.findOneAndUpdate({
                 _id: paramsData._id
             }, paramsData)
 
-            res.send({
-                status: 200,
-                data: data
-            })
+            res.success(data)
         } catch (e) {
-            res.send(e)
+            res.fail(e)
         }
     },
 }

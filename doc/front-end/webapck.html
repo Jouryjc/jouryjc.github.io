@@ -1,0 +1,575 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>webpack构建项目 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-advanced-emoji/emoji-website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="vue.html" />
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    项目介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../CATALOG.html">
+            
+                <a href="../CATALOG.html">
+            
+                    
+                    目录介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    前端
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.1" data-path="webapck.html">
+            
+                <a href="webapck.html">
+            
+                    
+                    webpack构建项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="vue.html">
+            
+                <a href="vue.html">
+            
+                    
+                    vue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="vue-router.html">
+            
+                <a href="vue-router.html">
+            
+                    
+                    vue-router
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="vuex.html">
+            
+                <a href="vuex.html">
+            
+                    
+                    vuex
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    后台
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../back-end/express.html">
+            
+                <a href="../back-end/express.html">
+            
+                    
+                    本地搭建 express 服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../back-end/mongoose.html">
+            
+                <a href="../back-end/mongoose.html">
+            
+                    
+                    mongoose
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >webpack构建项目</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="webpack&#x6784;&#x5EFA;&#x9879;&#x76EE;">webpack&#x6784;&#x5EFA;&#x9879;&#x76EE;</h1>
+<blockquote>
+<p>Webpack &#x662F;&#x5F53;&#x4E0B;&#x6700;&#x70ED;&#x95E8;&#x7684;&#x524D;&#x7AEF;&#x8D44;&#x6E90;&#x6A21;&#x5757;&#x5316;&#x7BA1;&#x7406;&#x548C;&#x6253;&#x5305;&#x5DE5;&#x5177;&#x3002;&#x5B83;&#x53EF;&#x4EE5;&#x5C06;&#x8BB8;&#x591A;&#x677E;&#x6563;&#x7684;&#x6A21;&#x5757;&#x6309;&#x7167;&#x4F9D;&#x8D56;&#x548C;&#x89C4;&#x5219;&#x6253;&#x5305;&#x6210;&#x7B26;&#x5408;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x90E8;&#x7F72;&#x7684;&#x524D;&#x7AEF;&#x8D44;&#x6E90;&#x3002;&#x8FD8;&#x53EF;&#x4EE5;&#x5C06;&#x6309;&#x9700;&#x52A0;&#x8F7D;&#x7684;&#x6A21;&#x5757;&#x8FDB;&#x884C;&#x4EE3;&#x7801;&#x5206;&#x9694;&#xFF0C;&#x7B49;&#x5230;&#x5B9E;&#x9645;&#x9700;&#x8981;&#x7684;&#x65F6;&#x5019;&#x518D;&#x5F02;&#x6B65;&#x52A0;&#x8F7D;&#x3002;&#x901A;&#x8FC7; loader &#x7684;&#x8F6C;&#x6362;&#xFF0C;&#x4EFB;&#x4F55;&#x5F62;&#x5F0F;&#x7684;&#x8D44;&#x6E90;&#x90FD;&#x53EF;&#x4EE5;&#x89C6;&#x4F5C;&#x6A21;&#x5757;&#xFF0C;&#x6BD4;&#x5982; CommonJS &#x6A21;&#x5757;&#x3001; AMD &#x6A21;&#x5757;&#x3001; ES6 &#x6A21;&#x5757;&#x3001;CSS&#x3001;&#x56FE;&#x7247;&#x3001;JSON&#x3001;coffeescript&#x3001;LESS &#x7B49;&#x3002;</p>
+</blockquote>
+<h3 id="&#x914D;&#x7F6E;&#x4EE3;&#x7801;">&#x914D;&#x7F6E;&#x4EE3;&#x7801;</h3>
+<h4 id="webpackcommonjs">webpack.common.js</h4>
+<blockquote>
+<p>&#x5F00;&#x53D1;&#x548C;&#x53D1;&#x5E03;&#x73AF;&#x5883;&#x5171;&#x7528;&#x7684;&#x914D;&#x7F6E;</p>
+</blockquote>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> VueLoaderPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;vue-loader/lib/plugin&apos;</span>)
+<span class="hljs-keyword">const</span> { getRootPath, assetsPath } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./utils&apos;</span>)
+
+<span class="hljs-built_in">module</span>.exports = {
+
+    <span class="hljs-comment">// &#x5B9A;&#x4E49;&#x5165;&#x53E3;&#x6587;&#x4EF6;</span>
+    entry: {
+        <span class="hljs-string">&apos;app&apos;</span>: getRootPath(<span class="hljs-string">&apos;src/client/src/main&apos;</span>)
+    },
+
+    <span class="hljs-comment">// &#x89E3;&#x6790;&#x914D;&#x7F6E;</span>
+    resolve: {
+
+        <span class="hljs-comment">// &#x81EA;&#x52A8;&#x89E3;&#x6790;&#x786E;&#x5B9A;&#x7684;&#x6269;&#x5C55;&#xFF0C;&#x80FD;&#x591F;&#x4F7F;&#x7528;&#x6237;&#x5728;&#x5F15;&#x5165;&#x6A21;&#x5757;&#x65F6;&#x4E0D;&#x5E26;&#x6269;&#x5C55;</span>
+        extensions: [<span class="hljs-string">&apos;.js&apos;</span>, <span class="hljs-string">&apos;.vue&apos;</span>],
+
+        <span class="hljs-comment">// &#x8DEF;&#x5F84;&#x7F29;&#x5199;&#xFF0C;&#x786E;&#x4FDD;&#x9879;&#x76EE;&#x4E2D;&#x7684;&#x6A21;&#x5757;&#x5F15;&#x5165;&#x66F4;&#x7B80;&#x5355;</span>
+        alias: {
+            <span class="hljs-string">&apos;vue$&apos;</span>: <span class="hljs-string">&apos;vue/dist/vue.esm.js&apos;</span>,
+            <span class="hljs-string">&apos;src&apos;</span>: getRootPath(<span class="hljs-string">&apos;src&apos;</span>),
+            <span class="hljs-string">&apos;components&apos;</span>: getRootPath(<span class="hljs-string">&apos;src/client/src/components&apos;</span>),
+            <span class="hljs-string">&apos;util&apos;</span>: getRootPath(<span class="hljs-string">&apos;src/client/src/util&apos;</span>)
+        }
+    },
+
+    <span class="hljs-comment">// &#x6A21;&#x5757;&#x89E3;&#x6790;</span>
+    <span class="hljs-built_in">module</span>: {
+        rules: [{
+                test: <span class="hljs-regexp">/\.js$/</span>,
+                loader: <span class="hljs-string">&apos;babel-loader&apos;</span>,
+                exclude: <span class="hljs-regexp">/node_modules/</span>
+            },
+            {
+                test: <span class="hljs-regexp">/\.vue$/</span>,
+                loader: <span class="hljs-string">&apos;vue-loader&apos;</span>,
+                exclude: <span class="hljs-regexp">/node_modules/</span>,
+            },
+            {
+                test: <span class="hljs-regexp">/\.css$/</span>,
+                use: [
+                    <span class="hljs-string">&apos;style-loader&apos;</span>,
+                    <span class="hljs-string">&apos;vue-style-loader&apos;</span>,
+                    {
+                        loader: <span class="hljs-string">&apos;css-loader&apos;</span>,
+                        options: {
+                            modules: <span class="hljs-literal">false</span>
+                        }
+                    }
+                ]
+            },
+            {
+                test: <span class="hljs-regexp">/\.(woff2?|eot|ttf|otf)(\?.*)?$/</span>,
+                loader: <span class="hljs-string">&apos;url-loader&apos;</span>,
+                options: {
+                    limit: <span class="hljs-number">50000</span>,
+                    name: assetsPath(<span class="hljs-string">&apos;fonts/[name].[ext]&apos;</span>)
+                }
+            }
+        ]
+    },
+
+    plugins: [
+
+        <span class="hljs-comment">// https://vue-loader.vuejs.org/zh/guide/#vue-cli</span>
+        <span class="hljs-comment">// &#x5C06;&#x4F60;&#x5B9A;&#x4E49;&#x8FC7;&#x7684;&#x5176;&#x5B83;&#x89C4;&#x5219;&#x590D;&#x5236;&#x5E76;&#x5E94;&#x7528;&#x5230; .vue &#x6587;&#x4EF6;&#x91CC;&#x76F8;&#x5E94;&#x8BED;&#x8A00;&#x7684;&#x5757;</span>
+        <span class="hljs-keyword">new</span> VueLoaderPlugin()
+    ],
+
+    <span class="hljs-comment">// &#x4F18;&#x5316;&#x914D;&#x7F6E;</span>
+    optimization: {
+
+        <span class="hljs-comment">// &#x591A;&#x4E2A;&#x5165;&#x53E3;&#x62BD;&#x53D6;&#x4E00;&#x4E2A;&#x516C;&#x5171;&#x7684;&#x8FD0;&#x884C;&#x65F6;&#x4EE3;&#x7801;</span>
+        runtimeChunk: <span class="hljs-string">&apos;single&apos;</span>,
+
+        <span class="hljs-comment">// &#x542F;&#x52A8;&#x9ED8;&#x8BA4;&#x7684;&#x4EE3;&#x7801;&#x5206;&#x5272;&#x914D;&#x7F6E;&#x9879;</span>
+        splitChunks: {
+            chunks: <span class="hljs-string">&apos;all&apos;</span>,
+
+            <span class="hljs-comment">// &#x6307;&#x5B9A;&#x751F;&#x6210;&#x540D;&#x5B57;&#x4E2D;&#x7684;&#x5206;&#x9694;&#x7B26;</span>
+            automaticNameDelimiter: <span class="hljs-string">&apos;~&apos;</span>,
+
+            <span class="hljs-comment">// &#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#xFF0C;&#x4E3B;&#x8981;&#x4F7F;&#x7528;&#x5B83;&#x6765;&#x51B3;&#x5B9A;&#x751F;&#x6210;&#x7684;&#x6587;&#x4EF6;</span>
+            cacheGroups: {
+
+                <span class="hljs-comment">// &#x62BD;&#x53D6;&#x516C;&#x5171;&#x4EE3;&#x7801;&#x7684; chunk &#x540D;&#x5B57;</span>
+                vendors: {
+
+                    <span class="hljs-comment">// &#x4E00;&#x822C;&#x4F7F;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x6765;&#x5339;&#x914D;</span>
+                    test: <span class="hljs-regexp">/[\\/]node_modules[\\/]/</span>,
+
+                    <span class="hljs-comment">// &#x62BD;&#x53D6;&#x516C;&#x5171;&#x4EE3;&#x7801;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF0C;&#x6570;&#x5B57;&#x8D8A;&#x5927;&#xFF0C;&#x4F18;&#x5148;&#x7EA7;&#x8D8A;&#x9AD8;</span>
+                    priority: <span class="hljs-number">-10</span>
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h4 id="weipackdevjs">weipack.dev.js</h4>
+<blockquote>
+<p>&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x7279;&#x6709;&#x7684;&#x914D;&#x7F6E;</p>
+</blockquote>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> WebpackCommon = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./webpack.common&apos;</span>)
+<span class="hljs-keyword">const</span> merge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;webpack-merge&apos;</span>)
+<span class="hljs-keyword">const</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;html-webpack-plugin&apos;</span>)
+<span class="hljs-keyword">const</span> FriendlyErrorsWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;friendly-errors-webpack-plugin&apos;</span>)
+<span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;webpack&apos;</span>)
+<span class="hljs-keyword">const</span> getRootPath = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./utils&apos;</span>).getRootPath
+<span class="hljs-keyword">const</span> devConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../config&apos;</span>).client.dev
+
+<span class="hljs-built_in">module</span>.exports = merge(WebpackCommon, {
+
+    mode: <span class="hljs-string">&apos;development&apos;</span>,
+
+    output: {
+        filename: <span class="hljs-string">&apos;[name]-[hash].js&apos;</span>,
+        publicPath: devConfig.publicPath
+    },
+
+    devtool: devConfig.devtoolType,
+
+    <span class="hljs-comment">// &#x672C;&#x5730;&#x8C03;&#x8BD5;&#x670D;&#x52A1;&#x5668;</span>
+    devServer: {
+        contentBase: getRootPath(<span class="hljs-string">&apos;dist&apos;</span>),
+        <span class="hljs-comment">// &#x4E3B;&#x673A;&#x540D;</span>
+        host: devConfig.host,
+        <span class="hljs-comment">// &#x7AEF;&#x53E3;&#x53F7;</span>
+        port: devConfig.port,
+        <span class="hljs-comment">// &#x81EA;&#x52A8;&#x6253;&#x5F00;&#x6D4F;&#x89C8;&#x5668;</span>
+        open: <span class="hljs-literal">true</span>,
+        <span class="hljs-comment">// &#x81EA;&#x52A8;&#x5237;&#x65B0;</span>
+        inline: <span class="hljs-literal">true</span>,
+        <span class="hljs-comment">// &#x70ED;&#x52A0;&#x8F7D;</span>
+        hot: <span class="hljs-literal">true</span>,
+        <span class="hljs-comment">// &#x7EC8;&#x7AEF;&#x8F93;&#x51FA;&#x7684;&#x53EA;&#x6709;&#x521D;&#x59CB;&#x542F;&#x52A8;&#x4FE1;&#x606F;&#x3002; webpack &#x7684;&#x8B66;&#x544A;&#x548C;&#x9519;&#x8BEF;&#x662F;&#x4E0D;&#x8F93;&#x51FA;&#x5230;&#x7EC8;&#x7AEF;&#x7684;</span>
+        quiet: <span class="hljs-literal">true</span>,
+        <span class="hljs-comment">// &#x5728;&#x6D4F;&#x89C8;&#x5668;&#x4E0A;&#x5168;&#x5C4F;&#x663E;&#x793A;&#x7F16;&#x8BD1;&#x7684;errors&#x6216;warnings</span>
+        overlay: {
+            errors: <span class="hljs-literal">true</span>,
+            warnings: <span class="hljs-literal">false</span>
+        },
+        <span class="hljs-comment">//&#x914D;&#x7F6E;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x89E3;&#x51B3;&#x8DE8;&#x57DF;</span>
+        proxy: devConfig.proxyTable
+    },
+
+    plugins: [
+
+        <span class="hljs-comment">// &#x70ED;&#x66FF;&#x6362;</span>
+        <span class="hljs-keyword">new</span> webpack.HotModuleReplacementPlugin(),
+
+        <span class="hljs-comment">// &#x7F16;&#x8BD1;&#x53CB;&#x597D;&#x63D0;&#x793A;&#x63D2;&#x4EF6;</span>
+        <span class="hljs-keyword">new</span> FriendlyErrorsWebpackPlugin({
+
+            compilationSuccessInfo: {
+                messages: [<span class="hljs-string">`You application is running here http://<span class="hljs-subst">${devConfig.host}</span>:<span class="hljs-subst">${devConfig.port}</span>`</span>],
+            }
+        }),
+
+        <span class="hljs-comment">// &#x914D;&#x7F6E;html&#x5165;&#x53E3;&#x4FE1;&#x606F;</span>
+        <span class="hljs-keyword">new</span> HtmlWebpackPlugin({
+            title: <span class="hljs-string">&apos;vue-express-mongo-demo&apos;</span>,
+            filename: <span class="hljs-string">&apos;index.html&apos;</span>,
+            template: <span class="hljs-string">&apos;src/client/index.html&apos;</span>,
+            inject: <span class="hljs-literal">true</span>
+        }),
+    ]
+});
+</code></pre>
+<h4 id="webpackprodjs">webpack.prod.js</h4>
+<blockquote>
+<p>&#x53D1;&#x5E03;&#x73AF;&#x5883;&#x7279;&#x6709;&#x7684;&#x914D;&#x7F6E;</p>
+</blockquote>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> WebpackCommon = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./webpack.common&apos;</span>)
+<span class="hljs-keyword">const</span> merge = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;webpack-merge&apos;</span>)
+<span class="hljs-keyword">const</span> getRootPath = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;./utils&apos;</span>).getRootPath
+<span class="hljs-keyword">const</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;html-webpack-plugin&apos;</span>)
+<span class="hljs-keyword">const</span> buildConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;../config&apos;</span>).client.build
+
+<span class="hljs-built_in">module</span>.exports = merge(WebpackCommon, {
+    mode: <span class="hljs-string">&apos;production&apos;</span>,
+
+    output: {
+        filename: <span class="hljs-string">&apos;[name]-[chunkhash].js&apos;</span>,
+        path: getRootPath(<span class="hljs-string">&apos;/dist/client&apos;</span>),
+        publicPath: buildConfig.publicPath
+    },
+
+    <span class="hljs-comment">// &#x63A7;&#x5236;&#x5982;&#x4F55;&#x751F;&#x6210; source map</span>
+    devtool: buildConfig.devtoolType,
+
+    plugins: [
+        <span class="hljs-keyword">new</span> HtmlWebpackPlugin({
+            filename: getRootPath(<span class="hljs-string">&apos;dist/client/index.html&apos;</span>),
+            template: getRootPath(<span class="hljs-string">&apos;src/client/index.html&apos;</span>),
+            inject: <span class="hljs-literal">true</span>,
+            <span class="hljs-comment">//&#x538B;&#x7F29;&#x914D;&#x7F6E;</span>
+            minify: {
+                <span class="hljs-comment">//&#x5220;&#x9664;Html&#x6CE8;&#x91CA;</span>
+                removeComments: <span class="hljs-literal">true</span>,
+                <span class="hljs-comment">//&#x53BB;&#x9664;&#x7A7A;&#x683C;</span>
+                collapseWhitespace: <span class="hljs-literal">true</span>,
+                <span class="hljs-comment">//&#x53BB;&#x9664;&#x5C5E;&#x6027;&#x5F15;&#x53F7;</span>
+                removeAttributeQuotes: <span class="hljs-literal">true</span>
+            },
+        })
+    ]
+});
+</code></pre>
+<p>&#x5F53;&#x7136;&#xFF0C;&#x4E0A;&#x8FF0;&#x914D;&#x7F6E;&#x4E2D;&#x7528;&#x5230;&#x7684;&#x4E00;&#x4E9B;&#x5DE5;&#x5177;&#x51FD;&#x6570;&#x548C;&#x73AF;&#x5883;&#x914D;&#x7F6E;&#x53C2;&#x6570;&#x5B9A;&#x4E49;&#x5728; <code>build/utils.js</code> &#x548C; <code>config/index.js</code> &#x4E2D;&#x3002;</p>
+<p>&#x914D;&#x7F6E;&#x7684;&#x65B9;&#x6848;&#x9700;&#x6839;&#x636E;&#x4E1A;&#x52A1;&#x7279;&#x5B9A;&#x9700;&#x6C42;&#x53BB;&#x5B8C;&#x5584;&#xFF0C;&#x7ED9;&#x51FA;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x6BD4;&#x8F83;&#x7B80;&#x5355;&#x7684; demo&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="vue.html" class="navigation navigation-next navigation-unique" aria-label="Next page: vue">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"webpack构建项目","level":"1.3.1","depth":2,"next":{"title":"vue","level":"1.3.2","depth":2,"path":"doc/front-end/vue.md","ref":"doc/front-end/vue.md","articles":[]},"previous":{"title":"前端","level":"1.3","depth":1,"ref":"","articles":[{"title":"webpack构建项目","level":"1.3.1","depth":2,"path":"doc/front-end/webapck.md","ref":"doc/front-end/webapck.md","articles":[]},{"title":"vue","level":"1.3.2","depth":2,"path":"doc/front-end/vue.md","ref":"doc/front-end/vue.md","articles":[]},{"title":"vue-router","level":"1.3.3","depth":2,"path":"doc/front-end/vue-router.md","ref":"doc/front-end/vue-router.md","articles":[]},{"title":"vuex","level":"1.3.4","depth":2,"path":"doc/front-end/vuex.md","ref":"doc/front-end/vuex.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["advanced-emoji"],"pluginsConfig":{"advanced-emoji":{"embedEmojis":false},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/front-end/webapck.md","mtime":"2018-12-16T08:58:04.988Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-16T09:25:18.691Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
