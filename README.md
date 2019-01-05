@@ -44,6 +44,9 @@
 #### 模块系统
 - [CommonJS 与 ES6 Module](https://github.com/Jouryjc/blog/issues/32)
 
+#### 译文
+- [[译] 认识虚拟 DOM](https://github.com/Jouryjc/blog/issues/38)
+
 
 ### 他人优秀文章系列
 
