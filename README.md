@@ -40,6 +40,7 @@
 
 #### 你不知道系列
 - [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
+- [this绑定方式](https://github.com/Jouryjc/blog/issues/40)
 
 #### 模块系统
 - [CommonJS 与 ES6 Module](https://github.com/Jouryjc/blog/issues/32)
