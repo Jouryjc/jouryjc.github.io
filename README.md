@@ -60,6 +60,10 @@
 - [12个HTML和CSS必须知道的重点难点问题](https://mp.weixin.qq.com/s/L0ieCEVONoSnB9lPGyWq5g)
 - [一劳永逸的搞定 flex 布局](https://juejin.im/post/58e3a5a0a0bb9f0069fc16bb)
 - [深拷贝的终极探索](https://mp.weixin.qq.com/s/iDbDyWeSDgShqR_nQ1po_g)
+- [最全面试题：你必须要懂的原生JS](https://mp.weixin.qq.com/s/kRKSRjT6Gljt5boVRuAzIw)
+- [【第1558期】ES5 to ESNext —  自 2015 以来 JavaScript 新增的所有新特性](https://mp.weixin.qq.com/s/dQkYmIlilNiNKbR26H1CKw)
+- [如何居中一个元素（终结版）](https://mp.weixin.qq.com/s/7b2TJdqcdy6emapydc7_OA)
+- [第1543期】如何写一篇杀手级的软件工程师简历](https://mp.weixin.qq.com/s/b99p4Nf-NhLcLc5cAHyylQ)
 
 #### 前端工程化
 - [让你的Webpack起飞—考拉会员后台Webpack优化实战](https://zhuanlan.zhihu.com/p/42465502)
@@ -95,4 +99,11 @@
 - [终于有人把云计算、大数据和人工智能讲明白了！](https://mp.weixin.qq.com/s/jEfNk-Pr6rJmz2KWDohkKA)
 - [一个程序员的成长之路 - 剖析别人，总结自己](https://mp.weixin.qq.com/s/zWPjfHiYxx0HH9lE99Yijw)
 - [如何快速成长为技术大牛？](https://mp.weixin.qq.com/s/t1P0mw9Hf4y27EiZB2biXw)
+
+#### 极力推荐的公众号
+每天早晚上下班地铁上，缺少了一些公众号刷，总觉得不过瘾？在此极力推荐几个公众号：
+
+- 奇舞周刊
+- 前端之巅
+- 前端早读课
 
