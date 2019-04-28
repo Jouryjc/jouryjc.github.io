@@ -2,6 +2,9 @@
 
 > 好记性不如烂笔头 :black_nib::black_nib::black_nib:
 
+#### css
+- [浅析 flex-grow、flex-shrink、flex-basis](https://github.com/Jouryjc/blog/issues/44)
+
 #### 代码规范
 
 - [vue最佳实践](https://github.com/Jouryjc/blog/issues/1)
