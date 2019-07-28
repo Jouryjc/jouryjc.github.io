@@ -40,7 +40,7 @@
 - [派发更新原理](https://github.com/Jouryjc/blog/issues/29)
 - [模板编译入口分析](https://github.com/Jouryjc/blog/issues/33)
 - [为什么 filter 里的 this 绑定的不是 Vue ？](https://github.com/Jouryjc/blog/issues/42)
-
+- [具名 slot 原理](https://github.com/Jouryjc/blog/issues/47)
 
 #### 你不知道系列
 - [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
