@@ -41,7 +41,7 @@
 - [模板编译入口分析](https://github.com/Jouryjc/blog/issues/33)
 - [为什么 filter 里的 this 绑定的不是 Vue ？](https://github.com/Jouryjc/blog/issues/42)
 - [具名插槽源码解析](https://github.com/Jouryjc/blog/issues/47)
-_ [作用域插槽源码分析](https://github.com/Jouryjc/blog/issues/48)
+- [作用域插槽源码分析](https://github.com/Jouryjc/blog/issues/48)
 
 #### 你不知道系列
 - [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
