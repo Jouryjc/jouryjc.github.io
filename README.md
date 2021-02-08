@@ -43,6 +43,9 @@
 - [具名插槽源码解析](https://github.com/Jouryjc/blog/issues/47)
 - [作用域插槽源码分析](https://github.com/Jouryjc/blog/issues/48)
 
+#### Vue-Router 源码系列
+- [Vue-Router 初始化过程](https://github.com/Jouryjc/blog/issues/52)
+
 #### 你不知道系列
 - [不知道系列笔记——作用域](https://github.com/Jouryjc/blog/issues/25)
 - [不知道系列笔记——this绑定方式](https://github.com/Jouryjc/blog/issues/40)
