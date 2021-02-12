@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call</title>
+</head>
+<body>
+    <script src="./apply.js"></script>
+    <script>
+        var name = 'windowName';
+
+        function log(firstName, secondName) {
+            console.log(this.name);
+            console.log(firstName, secondName);
+        }
+
+        var obj = {
+            name: 'objName'
+        };
+
+        // log('windowFirstName', 'windowSecondName');
+        log.myApply(obj, ['firstName', 'secondName']);
+        // log.myCall(null, 'firstName', 'secondName');
+
+    </script>
+</body>
+</html>

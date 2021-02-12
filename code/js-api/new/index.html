@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS-API</title>
+</head>
+<body>
+    <script src="./new.js"></script>
+    <script>
+        function Foo (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        Foo.prototype.text = 'my name is yjc';
+
+        Foo.prototype.getMyText = function getMyText () {
+            return this.text;
+        }
+
+        const a = myNew (Foo, 'yjc', '25');
+
+        console.log(a);
+        console.log(a.text);
+        console.log(a.getMyText());
+    </script>
+</body>
+</html>

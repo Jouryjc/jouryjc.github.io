@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.create</title>
+</head>
+<body>
+    <script src="./index.js"></script>
+    <script>
+        var obj = {
+            name: 'name',
+            age: 99,
+            sayName () {
+                console.log(this.name);
+            }
+        };
+
+        var b = myObjectCreate(obj);
+        console.log(b);
+    </script>
+</body>
+</html>
