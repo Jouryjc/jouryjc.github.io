@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curry</title>
+</head>
+<body>
+    <script src="./index.js"></script>
+    <script>
+        function sum(a, b, c) {
+            return a + b + c;
+        }
+
+        let curriedSum = curry(sum);
+
+        console.log(curriedSum(1, 2, 3)); // 6，仍然可以被正常调用
+        console.log(curriedSum(1)(2, 3)); // 6，对第一个参数的柯里化
+        console.log(curriedSum(1)(2)(3)); // 6，全柯里化
+    </script>
+</body>
+</html>

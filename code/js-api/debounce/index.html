@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce</title>
+    <style>
+        #app {
+            width: 800px;
+            height: 800px;
+            background-color: bisque;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="./index.js"></script>
+    <script>
+        var $app = document.getElementById('app');
+        var debouncedEvent = debounce(function (e) {
+            console.log(e);
+        }, 1000, true);
+
+
+        $app.addEventListener('mousemove', debouncedEvent);
+    </script>
+</body>
+</html>
