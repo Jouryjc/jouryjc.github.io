@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>deepClone</title>
+</head>
+<body>
+    <script type="module">
+        import { extend } from './index.js';
+
+        // var obj = {
+        //     a: [1,2,3],
+        //     b: function () {
+        //         return '123';
+        //     }
+        // };
+
+        // var obj2 = extend(true, {}, obj);
+
+        // obj2.a.push(4);
+        // console.log('obj2', obj2.a);
+        // console.log('obj', obj.a);
+
+        // obj2.b = function () {
+        //     return '456';
+        // }
+        // console.log('obj', obj.b());
+        // console.log('obj2', obj2.b());
+
+
+        var obj3 = {
+            a: obj4
+        };
+
+        var obj4 = {
+            a: 1,
+            b: obj3
+        }
+
+        console.log(extend(true, obj3, obj4));
+
+        // var a = extend(true, [4, 5, 6, 7, 8, 9], [1, 2, 3]);
+        // console.log(a)
+
+        // var obj1 = {
+        //     value: {
+        //         3: 1
+        //     }
+        // }
+
+        // var obj2 = {
+        //     value: [5, 6, 7],
+
+        // }
+
+        // var b = extend(true, obj1, obj2) // ???
+        // var c = extend(true, obj2, obj1) 
+
+        // console.log(b, c)
+    </script>
+</body>
+</html>
