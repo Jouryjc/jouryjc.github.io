@@ -15,7 +15,7 @@ export default defineConfig({
 
     nav: [
       {
-        text: '个人主页',
+        text: '关于个人',
         link: '/',
         activeMatch: '^/$|^/intruduction/'
       },
@@ -25,18 +25,28 @@ export default defineConfig({
         activeMatch: '^/js/'
       },
       {
+        text: 'Node',
+        link: '/node/vite/entry',
+        activeMatch: '^/node/'
+      },
+      {
         text: '算法',
-        link: '/algorithm/',
+        link: '/algorithm/index',
         activeMatch: '^/algorithm/'
       },
       {
         text: '读后感',
         link: 'study-note'
+      },
+      {
+        text: 'Github',
+        link: 'https://github.com/Jouryjc'
       }
     ],
     sidebar: {
       '/introduction/': getIntroduction(),
       '/js/': getJS(),
+      '/node/': getNode(),
       '/algorithm/': getAlgorithm(),
       '/study-note/': getStudyNote(),
       '/': getIntroduction(),
@@ -57,8 +67,26 @@ function getJS(): DefaultTheme.SideBarConfig {
   return []
 }
 
+function getNode(): DefaultTheme.SideBarConfig {
+  return [
+    {
+      text: 'Vite 源码解读',
+      link: '/node/vite/entry'
+    }
+  ]
+}
+
 function getAlgorithm(): DefaultTheme.SideBarConfig {
-  return []
+  return [
+    {
+      text: '刷题指南',
+      link: '/algorithm/index'
+    },
+    {
+      text: 'leetcode206-反转链表',
+      link: '/algorithm/reverse-list'
+    }
+  ]
 }
 
 function getStudyNote(): DefaultTheme.SideBarConfig {

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Jouryjc/blog#readme",
   "devDependencies": {
+    "esno": "^0.14.1",
     "vitepress": "^0.22.2"
   }
 }
