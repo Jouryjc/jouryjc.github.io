@@ -56,7 +56,7 @@ export default function PluginB(): Plugin {
 
 然后在源码入口（packages/vite/src/node/cli.ts）打上断点：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/resolve-config/entry-debugger.png)
+![](./img/resolve-config/entry-debugger.png)
 
 最后我们执行以下命令：
 
@@ -133,7 +133,7 @@ export async function createServer(
 
 config 是整个 createServer 过程中依赖的核心信息。resolveConfig 函数位于 packages/vite/src/node/config.ts，该函数体有接近 400 行代码，先了解整体流程，然后再去阅读源码。整体流程如下图所示：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/resolve-config/happy-path.jpeg)
+![](./img/resolve-config/happy-path.jpeg)
 
 调用 resolveConfig 时，inlineConfig 参数如下所示：
 
@@ -347,7 +347,7 @@ async function bundleConfigFile(
 
 bundleConfigFile 使用 esbuild 去构建 vite.config.ts 文件，返回产物和依赖列表如下图所示：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/resolve-config/bundled-result.png)
+![](./img/resolve-config/bundled-result.png)
 
 然后通过 loadConfigFromBundledFile 去加载配置：
 
@@ -384,7 +384,7 @@ async function loadConfigFromBundledFile(
 
 可以看到，通过 require.extensions[extension] 扩展 node 支持 ts 类型，使用 (module as NodeModuleWithCompile)._compile(bundledCode, filename) 编译加载的 vite.config.ts 文件。最终返回 config 如下图所示 :
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/resolve-config/vite-config-bundled-result.png)
+![](./img/resolve-config/vite-config-bundled-result.png)
 
 在 vite.config.ts 中定义的配置到这里就全部被获取到了。对于例子而言，最终从配置文件获取的是 object，若结果是函数，则会传入 configEnv 对象并执行函数获取结果，这常用于需要基于（`dev`/`serve` 或 `build`）命令或者不同的 [模式](https://cn.vitejs.dev/guide/env-and-mode.html) 来决定选项的情况。
 
@@ -473,7 +473,7 @@ function mergeConfigRecursively(
 
 用一张图描述加载配置的过程：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/resolve-config/loadConfigFromFile.png)
+![](./img/resolve-config/loadConfigFromFile.png)
 
 1. 先在当前和父级目录寻找 package.json 文件，找到后返回文件内容；
 2. 例子中配置文件是 vite.config.ts，所以会使用 esbuild 构建输出 CJS 结果；
@@ -761,17 +761,17 @@ export async function resolveConfig(
 
 7. 执行完 configResolved 钩子之后返回 resolved，通过图片来看看最终生成的配置：
 
-   ![默认插件和自定义插件列表](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/resolve-config/plugins.png)
+   ![默认插件和自定义插件列表](./img/resolve-config/plugins.png)
 
    上图展示了自定义插件和默认插件组成的列表；
 
-   ![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/resolve-config/resolved-var.png)
+   ![](./img/resolve-config/resolved-var.png)
 
    最后整个完整的配置详情；
 
 #### 小结
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/resolve-config/hooks-and-plugins.png)
+![](./img/resolve-config/hooks-and-plugins.png)
 
 这一小节我们分析了在解析配置时，插件会先按照 enforce 属性进行排序，输出 pre、normal、post 三类。然后插件执行了 config 和 configResolved 钩子，前者在刚解析并合并完配置后就会触发，config 钩子的返回值能够依次传到下一个组件，后者会在全部配置规范和内外插件合并完之后触发。
 

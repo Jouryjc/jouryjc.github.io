@@ -2,7 +2,7 @@
 
 大家好，我是码农小余。上一小节我们知道了当文件修改后，会触发文件监听实例 watcher 的 change 事件，更新模块信息和计算 HMR 边界。Websocket 会将计算得到的更新边界传给浏览器，浏览器拿到这些信息之后具体是怎么处理的呢？本文就来解开后续秘密。
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-demo-client-handle/hmr-client-handle.png)
+![](./img/hmr-demo/hmr-demo-client-handle/hmr-client-handle.png)
 
 本文的例子直接复用上一小节的即可，我就直接照搬过来了：
 
@@ -57,7 +57,7 @@ if (import.meta.hot) {
 
 可以看到有一个 vite 自身引入的脚本 `/@vite/client`，我们先简单了解这个脚本的引入：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-demo-client-handle/inject-html-plugin.png)
+![](./img/hmr-demo/hmr-demo-client-handle/inject-html-plugin.png)
 
 当我们访问 index.html 时，会经过 indexHtmlMiddleawre 的中间件，然后调用 transformIndexHtml 钩子去做 html 文件的处理，有一个内置的 html plugin，就会将 @vite/client 写入 head-prepend 的位置，整个 html 插件的处理内容比较多，不展开在这里说了。
 
@@ -238,13 +238,13 @@ export const createHotContext = (ownerPath: string) => {
 
 createHotContext 是客户端的热更新初始化流程，将所有热更模块信息收集起来放到模块全局变量中。对于本例子而言，style.css 在内置插件 vite:css-post 会默认插入热更代码，main.js 和 foo.js 都是我们手动写入的。最终写入的模块变量如下图所示：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-demo-client-handle/client-init.png)
+![](./img/hmr-demo/hmr-demo-client-handle/client-init.png)
 
 ## 更新流程
 
 websocket 连接并收集完模块的热更信息之后，我们修改一下文件之后，上篇我们已经知道服务端的处理方式。在客户端我们通过 websocket 的 message 钩子接收到消息：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-demo-client-handle/message-update-event.png)
+![](./img/hmr-demo/hmr-demo-client-handle/message-update-event.png)
 
 ```typescript
 async function handleMessage(payload: HMRPayload) {
@@ -358,7 +358,7 @@ async function fetchUpdate({ path, acceptedPath, timestamp }: Update) {
 
 根据 path 从 hotModulesMap 中获取模块信息，如果模块不存在就直接终止，存在则判断是否“自我接受”，是的话就把自己加入到待更新集合，否则就去遍历全部 deps 加入到更新集合并重新获取回调函数。之后遍历待更新队列 modulesToUpdate，如果模块有 dispose 函数的定义就清除副作用。再就是来到最核心的地方，通过动态 import 去加载最新的资源并更新模块信息，保证最后的回调拿到的模块是最新的。
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-demo-client-handle/fetch-update-network.png)
+![](./img/hmr-demo/hmr-demo-client-handle/fetch-update-network.png)
 
 从上图可以看到，每次修改文件都会用最新的时间戳去请求资源。请求发出之后，又会回到 vite 服务端的 transformMiddleware，这部分流程在模块图中已经分析过了，忘记的童鞋可以回头看下[模块之间的依赖关系是一个图](./模块之间的依赖关系是一个图.md)流程。
 
@@ -390,7 +390,7 @@ async function queueUpdate(p: Promise<(() => void) | undefined>) {
 
 最后用一张图做整个 HMR 回顾：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-demo-client-handle/vite-hmr-all-process.png)
+![](./img/hmr-demo/hmr-demo-client-handle/vite-hmr-all-process.png)
 
 1. 当文件发生改变，文件系统已经能够监测到文件元信息比如修改时间改变之后，触发 server watcher 的 change 事件；
 2. server 拿到修改的文件，更新 moduleGraph 上的模块节点信息，主要是将 tansformResult 和 ssr 相关的生成结果清空；然后计算更新策略：如果修改的是 vite 配置或环境变量相关的文件，就重启服务；如果修改的是 @vite/client 或 html，直接刷新页面；上述都不是的话，就调用插件的 handleHotUpdate 钩子得到最终的热更列表 hmrContext.modules 去做“边界”计算。计算“边界”主要是遍历模块列表，更新模块的最近热更时间、置空 transformResult 字段，再根据热更客户端 API 的参数对模块的引用者（importers）做同样的更新；最后根据模块间是否存在循环引用等情况判断是否存在“死路”。

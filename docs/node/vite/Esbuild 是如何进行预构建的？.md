@@ -57,7 +57,7 @@ const runOptimize = async () => {
 
 入口处将配置 config 和是否强制缓存的标记（通过 --force 传入或者调用 restart API）传到 optimizeDeps。optimizeDeps 逻辑比较长，我们先通过流程图对整个流程有底之后，再按照功能模块去阅读源码。
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/optimizeDeps-process.png)
+![](./img/pre-bundling/optimizeDeps-process.png)
 
 简述一下整个预构建流程：
 
@@ -262,13 +262,13 @@ function getDepHash(root: string, config: ResolvedConfig): string {
 
 上述代码很长，关键都在 scanImports 函数，这个涉及到 esbuild 插件和 API，我们待会拎出来分析。其他部分的代码我们通过一张流程图来讲解：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/bare-import-process.png)
+![](./img/pre-bundling/bare-import-process.png)
 
 1. 开始通过 scanImports 找到全部入口并扫描全部的依赖做预构建；返回 deps 依赖列表、missings 丢失的依赖列表；
 
 2. 基于 deps 做 hash 编码，编码结果赋给 data.browserHash，这个结果就是浏览器发起这些资源的 hash 参数； 
 
-   ![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/browserHash.png)
+   ![](./img/pre-bundling/browserHash.png)
 
 3. 对于使用了 node_modules 下没有定义的包，会发出错误信息，并终止服务；举个例子，我引入 `abcd` 包：
 
@@ -287,7 +287,7 @@ function getDepHash(root: string, config: ResolvedConfig): string {
 
    然后执行  dev：
 
-   ![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/missings.png)
+   ![](./img/pre-bundling/missings.png)
 
 4. 将 vite.config.ts 中的 [optimizeDeps.include](https://cn.vitejs.dev/config/#optimizedeps-include) 数组中的值添加到 deps 中，也举个例子：
 
@@ -320,7 +320,7 @@ function getDepHash(root: string, config: ResolvedConfig): string {
 
    上述代码我们将 ./lib/index.js 这个文件添加到预构建的 include 配置中，lib 下的两个文件内容也已经明确了。接下来执行 dev 后，我们从终端上就可以看到这个结果：
 
-   ![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/optimizeDeps.include.png)
+   ![](./img/pre-bundling/optimizeDeps.include.png)
 
    我们的 lib/index.js 已经被添加到预构建列表。最后再看一下 node_modules/.vite，有一个 `_Users_yjcjour_Documents_code_vite_examples_vue-demo_lib_index_js.js` 文件，并且已经被构建，还有 sourcemap 文件，这就是 [optimizeDeps.include](https://cn.vitejs.dev/config/#optimizedeps-include) 的作用。具体如何构建这个文件的我们在 **导出分析** 去梳理。
 
@@ -431,7 +431,7 @@ export async function scanImports(config: ResolvedConfig): Promise<{
 
 扫描入口先从 optimizeDeps.entries 获取；如果没有就去获取 build.rollupOptions.input 配置，处理了 input 的字符串、数组、对象形式；如果都没有，就默认寻找 html 文件。然后传入 deps、missing 调用 esbuildScanPlugin 函数生成扫描插件，并从 optimizeDeps.esbuildOptions 获取外部定义的 esbuild 配置，最后调用 esbuild.build API 进行构建。整个流程汇总成一张图如下：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/scan-import.png)
+![](./img/pre-bundling/scan-import.png)
 
 重点来了，使用 vite:dep-scan 插件扫描依赖，并将在 node_modules 中的依赖定义在 `deps` 对象中，缺失的依赖定义在 `missing` 中。接着我们就进入该插件内部，一起学习 esbuild 插件机制：
 
@@ -517,7 +517,7 @@ function esbuildScanPlugin(
 
 上述代码先定义了一堆正则表达式，具体的匹配内容已经在注释中声明。可以看到，扫描依赖核心就是**对依赖进行正则匹配（esbuild 的 onResolve），然后对于不支持的文件做处理（esbuild onLoad）**。接下来我们就从 DEMO 入手，来完整地执行一遍 esbuild 的构建流程。这样读者既能深入了解 vite 预构建时模块的构建流程，也能学会 esbuild 插件的开发。我们先来看一下 DEMO 的模块依赖图：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/esbuild-scan-deps-demo-number.png)
+![](./img/pre-bundling/esbuild-scan-deps-demo-number.png)
 
 对于本文示例而言，entries 就只有根目录的 index.html，所以首先会进入 html 流程：
 
@@ -809,11 +809,11 @@ console.log(_.trim('   hello '))`
 
 **最后对于 ./lib/index**，跟上述解析 /src/main.js 的流程也是一致的。我们可以将整个依赖抓取和解析的过程用下图总结：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/esbuild-scan-deps-demo.png)
+![](./img/pre-bundling/esbuild-scan-deps-demo.png)
 
 通过 resolve 依赖，load 解析，esbuild 就扫描完整个应用的依赖。具体的处理路径通过在源码中打上日志，我们可以看到以下的处理路径：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/esbuild-scan-plugin.png)
+![](./img/pre-bundling/esbuild-scan-plugin.png)
 
 路径结果跟我们的分析是一样的。插件执行结束，作为参数传入的 deps、missing 也完成了它们的收集（在对 `/^[\w@][^:]/` 做依赖分析时会给这两个对象挂属性）。
 
@@ -981,7 +981,7 @@ console.log(fsExtra)
 在执行预构建前，先将存在多层级的 dep 拍平，目的是为了产物能够更明确和简单。然后遍历 deps 做 import、export 的解析。对于有 `export * from 'xx'` 的表达式，会打上 hasReExports 标记；对于本文 DEMO 而言，执行完 deps 的分析之后 flatIdDeps、
 idToExports、flatIdToExports 的结果如截图所示：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/flat-var.png)
+![](./img/pre-bundling/flat-var.png)
 
 从结果可以清楚地看到变量的含义：
 
@@ -1145,7 +1145,7 @@ export function esbuildDepPlugin(
 
 首先，上述 flatIdDeps 作为入口，先依次执命中 `/^[\w@][^:]/` filter 的解析，最后都会通过 resolveEntry 套上 namespace: dep 的类型。然后执行 namespace: dep 的 load 回调。接下来的流程通过一张图去展示：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/dep-load-callback.png)
+![](./img/pre-bundling/dep-load-callback.png)
 
 流程可以概括成两大步：
 
@@ -1159,7 +1159,7 @@ export function esbuildDepPlugin(
 
 完成整个预构建的依赖查找之后，就会执行构建，构建后的 metafile 信息如下：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/pre-bundling/esbuild-metafile.png)
+![](./img/pre-bundling/esbuild-metafile.png)
 
 input 信息太长，只打印了搜查的依赖总长度是 692，最后构建的产物从上图能够看到对于 lodash-es 这种包，会将依赖全部打成一个包，减少 http 次数。
 

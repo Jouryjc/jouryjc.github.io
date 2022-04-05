@@ -2,7 +2,7 @@
 
 大家好，我是码农小余。在正式开始之前，先来了解调试 CLI 工具源码时的前期准备工作。读者可以跟着步骤在自己的 PC 上准备好调试环境，每读完一个小节，建议都去单独调试、走一遍流程，学习效果会更佳哦！
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/ready/visualstudiocodelogo.png)
+![](./img/ready/visualstudiocodelogo.png)
 
 ## 前期准备
 
@@ -16,13 +16,13 @@
 
 ### fork vite repository & git clone
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/fork-repository.png)
+![](./img/fork-repository.png)
 
 Fork repository 后可以在源码中随便添加注释（:warning:注意是在源码中，不要在构建之后的代码写过多的注释。这样即使不小心执行了 pnpm build，注释还是能够保留）。
 
 Fork 完成之后，就会进入到你个人账号对应的 Vite 项目中，然后就可以执行 git clone xxx 将项目拉到本地。
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/git-clone.png)
+![](./img/git-clone.png)
 
 clone 完成之后，第一步就结束了。
 
@@ -164,7 +164,7 @@ pnpm install
 
 安装了 DEMO 的依赖，接下来就可以在你想要了解的流程入口打上断点。比如小余想了解 vite dev 下是怎么创建服务的，在 packages/vite/src/node/cli.ts 找到 dev 这个 action，标记一个断点：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/create-server.png)
+![](./img/create-server.png)
 
 标记完断点之后，我们一般还可以先查看 CLI 工具的 help 参数，执行
 
@@ -174,21 +174,21 @@ vite --help
 
 会得到下面截图的信息：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/vite-help.png)
+![](./img/vite-help.png)
 
 依据截图，我们知道小册调试的是 2.8.4 版本的 vite；最最最关键的是下面这两个参数——debug 和 filter，debug 开启调试日志。我们知道 vite 源码中有大量的 debug('xxx') 之类的日志信息，这部分能够很好地帮助我们理解源码。filter 能帮过滤日志信息，类似 linux 的 grep 命令。
 
 最后进入 DEMO 根目录，用快捷按钮或者在 JavaScript Debug Terminal 执行 dev：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/debugger-dev.png)
+![](./img/debugger-dev.png)
 
 上图中可以看到，我们在 vite 上加了 debug 参数，这是开启了 debug 模式，有大量的辅助日志帮助我们梳理、理解整个流程（小技巧，当自己开发的命令行工具，也要考虑**可调试性**这一块的需求，考虑怎样的日志记录能够让你迅速定位到异常。）如下图所示：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/ready/vite-debug-mode.png)
+![](./img/ready/vite-debug-mode.png)
 
 最后顺利进入到断点。如下图所示：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/enter-debugger.png)
+![](./img/enter-debugger.png)
 
 到这里就完成了前期的准备工作。
 

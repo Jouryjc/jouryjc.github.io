@@ -2,7 +2,7 @@
 
 大家好，我是码农小余。本节开始接触 Vite 核心特性热更新（Hot Module Replacement，简写 HMR）。
 
-![hmr-logo](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-logo.png)![]()
+![hmr-logo](./img/hmr-demo/hmr-logo.png)![]()
 
 HMR 的 API 在工作中写得较少，大多数插件都会内置这些 API，比如 vite:css-post 插件埋上 accept 钩子是修改 css 文件能够触发热更的原因。作为高级的插件开发者，我们必须要能够熟练地使用热更技能。本节先来熟悉 HMR 客户端 API 的定义和作用。Vite 通过 import.meta.hot 提供这些 API：
 
@@ -59,7 +59,7 @@ document.querySelector('#app').innerHTML = `
 
 当我们不在 main.js 中写 accept 函数，并将 h1 标签里面的 “Vite” 改成 “码农小余”，浏览器页面会重新刷新，vite 服务端也会输出下面日志：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-reload.png)
+![](./img/hmr-demo/hmr-reload.png)
 
 当我们加上 `import.meta.hot.accept` 函数后：
 
@@ -79,9 +79,9 @@ if (import.meta.hot) {
 
 再把 “码农小余”改成 Vite：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-update-broswer.png)
+![](./img/hmr-demo/hmr-update-broswer.png)
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-update.png)
+![](./img/hmr-demo/hmr-update.png)
 
 此时，浏览器会重新加载 main.js 而不是加载全部资源，注意 main.js 的时间戳参数已经修改了，而 Vite 服务日志显示的是 update。这说明 main.js 热更生效了。
 
@@ -110,7 +110,7 @@ if (import.meta.hot) {
 
 同样，我们将 Vite 改成 “码农小余”看会发生什么？
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-update-cb.png)
+![](./img/hmr-demo/hmr-update-cb.png)
 
 
 
@@ -137,7 +137,7 @@ if (import.meta.hot) {
 
 再将 name 改成“码农小余”，此时的结果就符合预期了：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-update-cb-normal.png)
+![](./img/hmr-demo/hmr-update-cb-normal.png)
 
 ### accept(dep: string, cb: (mod: any) => void): void
 
@@ -168,7 +168,7 @@ export let name = '码农小余'
 
 我们将 name.js 中的 name 改成 Vite 后：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-update-dep-cb-normal.png)
+![](./img/hmr-demo/hmr-update-dep-cb-normal.png)
 
 三处细节值得注意，首先 name.js 模块自身没有定义 accept，但发生了热更新；在 main.js 的回调函数中，正确获取到 name 改变后的值；客户端的 console 日志是指明了通过 main.js 热更了 name.js。
 
@@ -213,7 +213,7 @@ export let documentName = 'Document'
 
 accept 接受模块数组，回到函数参数也是模块列表。在触发 ./name 变化时，newNameModule 能获取到值，而在触发 ./document 变化时，newDocModule 能获取到值。
 
-![hmr-accept-mod-array](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-accept-mod-array.png)![]()
+![hmr-accept-mod-array](./img/hmr-demo/hmr-accept-mod-array.png)![]()
 
  ## import.meta.hot.prune
 
@@ -246,7 +246,7 @@ if (import.meta.hot) {
 
 上述代码中，在 main.js 模块定义了接收自身的热更，在 name.js 中定义了模块被剔除的事件回调函数。接下来我们就将 main.js 中的 `import { name } from './name'` 代码删除：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-prune-cb.png)
+![](./img/hmr-demo/hmr-prune-cb.png)
 
 可以看到，当不再引用 name.js 时，模块被剔除后就会调用 prune 函数。
 
@@ -274,11 +274,11 @@ const timer = setInterval(() => {
 
 模块 main.js 接收 ./count 模块的变化，count.js 每隔一秒打印 count 一次，结果自然就是 1、2、3……
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-update-dispose.png)
+![](./img/hmr-demo/hmr-update-dispose.png)
 
 我们修改一下这个模块，在 `export let count = 1` 加一个 `;` 后，来看下热更结果：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-update-dispose-unnormal.png)
+![](./img/hmr-demo/hmr-update-dispose-unnormal.png)
 
 可以看到，我们触发了热更新，但是老模块的定时器还存在，并且还在递增。如果我们想要销毁旧的(count.js) 定时器的影响，那么我们就要调用 dispose 方法，我们修改上述代码成：
 
@@ -300,7 +300,7 @@ if (import.meta.hot) {
 
 刷新页面后，再随便修改 count.js：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-update-dispose-normal.png)
+![](./img/hmr-demo/hmr-update-dispose-normal.png)
 
 可以看到，count.js 更新了，旧模块的定时器也被清理了。
 
@@ -333,7 +333,7 @@ if (import.meta.hot) {
 
 上述 count.js 代码在上一个例子的基础上加了 import.meta.hot.data.getCount 的函数，如果定义了 getCount 了就从函数中获取 count，没有的话默认就是 1；这样处理之后我们看下效果：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-meta-hot-data.png)
+![](./img/hmr-demo/hmr-meta-hot-data.png)
 
 可以看到，即使在热更之后，count 的数字依旧是从上一个实例的结果中继续叠加的，没有从 1 开始。这就是 import.meta.hot.data 的作用，现在再去品一下文档中的描述“`import.meta.hot.data` 对象在同一个更新模块的不同实例之间持久化。它可以用于将信息从模块的前一个版本传递到下一个版本。”就能理解其中的意义了。
 

@@ -4,7 +4,7 @@
 
 在“开端”一文中，我们知道了当在终端敲下 vite（vite dev、vite server）到返回下图结果
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/create-server/cli-output.png)
+![](./img/create-server/cli-output.png)
 
 中间发生的事情。
 
@@ -471,7 +471,7 @@ export async function createServer(
 
 读完上述代码，再结合开篇中的流程图：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/starting/staring-overview.png)
+![](./img/starting/staring-overview.png)
 
 我们再来详述整个流程：
 
@@ -935,13 +935,13 @@ export async function createServer(
 
 8. 最后重写了 server 的 listen 方法，在服务器启动之前执行 containerPlugin 的 buildStart 钩子和预构建。并返回 server，外部通过调用 listen 启动服务器，并打印访问链接和启动时间等信息。也就回到了文章开头那张服务成功运行后的图：
 
-   ![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/create-server/cli-output.png)
+   ![](./img/create-server/cli-output.png)
 
 ## 总结
 
 再回头看整个流程概览图：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/starting/staring-overview.png)
+![](./img/starting/staring-overview.png)
 
 当我们敲下 vite 命令后，vite 在短短时间内做了解析配置、创建 http server、创建 ws、创建文件监听器、初始化模块依赖图、创建插件、预构建、启动服务等任务。
 

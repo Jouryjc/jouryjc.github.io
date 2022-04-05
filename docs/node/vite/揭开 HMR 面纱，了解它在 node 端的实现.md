@@ -2,7 +2,7 @@
 
 大家好，我是码农小余。上一小节我们学习了 HMR 的 客户端 API，对于常见的热更接收机制、热更失效、多实例变量缓存都有了比较清晰的认知。本节我们就先从 node 端去探索 HMR 的实现原理。
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-概览图.png)
+![](./img/hmr-demo/hmr-概览图.png)
 
 当我们在 vscode（或其它代码编辑器）修改一行代码时，会触发文件变化，然后被 Vite server 上的文件监听实例（在[初始化配置创建服务](./create-server.md)一节，知道了服务通过 [chokidar](https://www.npmjs.com/package/chokidar) 去创建了文件监听实例）获取到文件变化触发 change 事件：
 
@@ -59,7 +59,7 @@ if (import.meta.hot) {
 
 main.js 引用 foo.js 和 style.css，foo.js 引用 bar.js，模块的依赖图如下所示：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-demo.png)
+![](./img/hmr-demo/hmr-demo.png)
 
 修改 bar.js 文件后，触发 watcher 的 change 的事件：
 
@@ -116,7 +116,7 @@ invalidateModule(mod: ModuleNode, seen: Set<ModuleNode> = new Set()): void {
 
 对于 bar.js 文件，mods 信息如下：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-demo-barjs.png)
+![](./img/hmr-demo/hmr-demo-barjs.png)
 
 所有模块循环调用 invalidateModule，就是将文件对应模块的 info、transformResult、ssrTransformResult 都置为 null；至于为什么要循环，因为一个文件对应的不止一个模块，比如 vue 的 SFC，一个 vue 文件会对应多个模块。
 
@@ -322,7 +322,7 @@ function invalidate(mod: ModuleNode, timestamp: number, seen: Set<ModuleNode>) {
 
 invalidate 函数更新了模块的最后热更时间，并将代码转换（transformResult、ssrTransformResult）置空，最后遍历模块的引用者（importers，也可叫作前置依赖，具体指哪些模块引用了该模块）。importer.acceptedHmrDeps 获取到的是模块中 import.meta.hot.accept 的 dep(s) 参数，对于本文的例子而言，mod 就是我们修改的文件 bar.js 指向的模块，importers 指的是 foo.js，所以 importer.acceptedHmrDeps 就是代码 `import.meta.hot.accept('./bar.js')` 中的 dep 参数代表的模块集合，即 './bar.js' 文件指向的模块，所以经过 invalidate 处理之后的结果如下：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-demo-invalidate-result.png)
+![](./img/hmr-demo/hmr-demo-invalidate-result.png)
 
 因为引用者 foo.js 接受 bar.js 模块的更新， 所以 `importer.acceptedHmrDeps.has(mod)` 返回的是 true，取反后就不会执行内部的 invalidate。所以上述结果中 importers 中的 foo.js 模块 transformResult 结果没有置空。
 
@@ -413,7 +413,7 @@ function propagateUpdate(
 
 文章开头的那张图再回头看一下：
 
-![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-概览图.png)
+![](./img/hmr-demo/hmr-概览图.png)
 
 学习完这一小节，我们知道了步骤1、2、3、4 具体做了什么：
 
@@ -423,7 +423,7 @@ function propagateUpdate(
 
 3. Vite Server 对修改文件做了很多事情，具体可以看下图：
 
-   ![](/Users/yjcjour/Documents/code/blog/docs/node/vite/img/hmr-demo/hmr-server处理.png)
+   ![](./img/hmr-demo/hmr-server处理.png)
 
 4. 最后 server 将需要更新的文件相关信息通过 socket 服务发往 socket 客户端；
 
