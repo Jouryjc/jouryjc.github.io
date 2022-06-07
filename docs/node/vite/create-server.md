@@ -4,7 +4,7 @@
 
 在“开端”一文中，我们知道了当在终端敲下 vite（vite dev、vite server）到返回下图结果
 
-![](https://raw.githubusercontent.com/Jouryjc/images/main/img/cli-output.png)
+![](./img/create-server/cli-output.png)
 
 中间发生的事情。
 
@@ -200,7 +200,15 @@ export async function createServer(
   const { ignored = [], ...watchOptions } = serverConfig.watch || {}
   // 通过 chokidar 监控文件变化
   const watcher = chokidar.watch(path.resolve(root), {
-  	// ...
+    ignored: [
+      '**/node_modules/**',
+      '**/.git/**',
+      ...(Array.isArray(ignored) ? ignored : [ignored])
+    ],
+    ignoreInitial: true,
+    ignorePermissionErrors: true,
+    disableGlobbing: true,
+    ...watchOptions
   }) as FSWatcher
   
   // ⚠️ 初始化模块图
@@ -219,7 +227,90 @@ export async function createServer(
 
   // ⚠️ 用字面量的形式定义 server 配置，能够通过插件的 configureServer 钩子中获取
   const server: ViteDevServer = {
-    // ...
+    config,
+    middlewares,
+    get app() {
+      config.logger.warn(
+        `ViteDevServer.app is deprecated. Use ViteDevServer.middlewares instead.`
+      )
+      return middlewares
+    },
+    httpServer,
+    watcher,
+    pluginContainer: container,
+    ws,
+    moduleGraph,
+    ssrTransform,
+    transformWithEsbuild,
+    transformRequest(url, options) {
+      return transformRequest(url, server, options)
+    },
+    transformIndexHtml: null!, // to be immediately set
+    ssrLoadModule(url, opts?: { fixStacktrace?: boolean }) {
+      server._ssrExternals ||= resolveSSRExternal(
+        config,
+        server._optimizeDepsMetadata
+          ? Object.keys(server._optimizeDepsMetadata.optimized)
+          : []
+      )
+      return ssrLoadModule(
+        url,
+        server,
+        undefined,
+        undefined,
+        opts?.fixStacktrace
+      )
+    },
+    ssrFixStacktrace(e) {
+      if (e.stack) {
+        const stacktrace = ssrRewriteStacktrace(e.stack, moduleGraph)
+        rebindErrorStacktrace(e, stacktrace)
+      }
+    },
+    listen(port?: number, isRestart?: boolean) {
+      return startServer(server, port, isRestart)
+    },
+    async close() {
+      process.off('SIGTERM', exitProcess)
+
+      if (!middlewareMode && process.env.CI !== 'true') {
+        process.stdin.off('end', exitProcess)
+      }
+
+      await Promise.all([
+        watcher.close(),
+        ws.close(),
+        container.close(),
+        closeHttpServer()
+      ])
+    },
+    printUrls() {
+      if (httpServer) {
+        printCommonServerUrls(httpServer, config.server, config)
+      } else {
+        throw new Error('cannot print server URLs in middleware mode.')
+      }
+    },
+    async restart(forceOptimize: boolean) {
+      if (!server._restartPromise) {
+        server._forceOptimizeOnRestart = !!forceOptimize
+        server._restartPromise = restartServer(server).finally(() => {
+          server._restartPromise = null
+          server._forceOptimizeOnRestart = false
+        })
+      }
+      return server._restartPromise
+    },
+
+    _optimizeDepsMetadata: null,
+    _ssrExternals: null,
+    _globImporters: Object.create(null),
+    _restartPromise: null,
+    _forceOptimizeOnRestart: false,
+    _isRunningOptimizer: false,
+    _registerMissingImport: null,
+    _pendingReload: null,
+    _pendingRequests: new Map()
   }
   
   // ⚠️ 插件的 transformIndexHtml 钩子在这里就执行啦，用于转换 index.html
@@ -263,7 +354,31 @@ export async function createServer(
     }
   }
 
- 	// 省略一系列内置中间件...  
+  // 一系列内部的中间件
+  // request timer
+  if (process.env.DEBUG) {
+    middlewares.use(timeMiddleware(root))
+  }
+
+  // cors (enabled by default)
+  const { cors } = serverConfig
+  if (cors !== false) {
+    middlewares.use(corsMiddleware(typeof cors === 'boolean' ? {} : cors))
+  }
+
+  // proxy
+  const { proxy } = serverConfig
+  if (proxy) {
+    middlewares.use(proxyMiddleware(httpServer, config))
+  }
+
+  // base
+  if (config.base !== '/') {
+    middlewares.use(baseMiddleware(server))
+  }
+
+  // open in editor support
+  middlewares.use('/__open-in-editor', launchEditorMiddleware())
 
   // hmr reconnect ping
   // Keep the named function. The name is visible in debug logs via `DEBUG=connect:dispatcher ...`
@@ -281,14 +396,46 @@ export async function createServer(
   // ⚠️ main transform middleware -> 主转换文件
   middlewares.use(transformMiddleware(server))
 
-  // ...
+  // serve static files
+  middlewares.use(serveRawFsMiddleware(server))
+  middlewares.use(serveStaticMiddleware(root, server))
+
+  // spa fallback
+  if (!middlewareMode || middlewareMode === 'html') {
+    middlewares.use(spaFallbackMiddleware(root))
+  }
+
+  // run post config hooks
+  // This is applied before the html middleware so that user middleware can
+  // serve custom content instead of index.html.
+  postHooks.forEach((fn) => fn && fn())
+
+  if (!middlewareMode || middlewareMode === 'html') {
+    // transform index.html
+    middlewares.use(indexHtmlMiddleware(server))
+    // handle 404s
+    // Keep the named function. The name is visible in debug logs via `DEBUG=connect:dispatcher ...`
+    middlewares.use(function vite404Middleware(_, res) {
+      res.statusCode = 404
+      res.end()
+    })
+  }
 
   // error handler
   middlewares.use(errorMiddleware(server, !!middlewareMode))
   
   // ⚠️ 预构建
   const runOptimize = async () => {
-    // ...
+    server._isRunningOptimizer = true
+    try {
+      server._optimizeDepsMetadata = await optimizeDeps(
+        config,
+        config.server.force || server._forceOptimizeOnRestart
+      )
+    } finally {
+      server._isRunningOptimizer = false
+    }
+    server._registerMissingImport = createMissingImporterRegisterFn(server)
   }
 
   // 不是以中间件模式创建的 Vite 服务，是 http 服务
@@ -324,9 +471,9 @@ export async function createServer(
 
 读完上述代码，再结合开篇中的流程图：
 
-![](https://github.com/Jouryjc/images/blob/main/img/staring-overview.png?raw=true)
+![](./img/starting/staring-overview.png)
 
-依据上图，我们再来详述整个流程：
+我们再来详述整个流程：
 
 1. 当我们在终端上敲入 vite 时，vite node 端会读取、过滤命令行参数，然后调用 createServer 创建服务器；
 
@@ -503,7 +650,37 @@ export async function createServer(
     * 每一个模块节点的信息
     */
    export class ModuleNode {
-     // ...
+     /**
+      * Public served url path, starts with /
+      */
+     url: string
+     /**
+      * Resolved file system path + query
+      */
+     id: string | null = null
+     file: string | null = null
+     // 节点类型，脚本或者样式
+     type: 'js' | 'css'
+     info?: ModuleInfo
+     meta?: Record<string, any>
+     // 引用者
+     importers = new Set<ModuleNode>()
+     importedModules = new Set<ModuleNode>()
+     // 当前模块热更的依赖
+     acceptedHmrDeps = new Set<ModuleNode>()
+     // 是否自我“接受”
+     isSelfAccepting = false
+     // 转换后结果
+     transformResult: TransformResult | null = null
+     ssrTransformResult: TransformResult | null = null
+     ssrModule: Record<string, any> | null = null
+     // 最新热更时间戳
+     lastHMRTimestamp = 0
+   
+     constructor(url: string) {
+       this.url = url
+       this.type = isDirectCSSRequest(url) ? 'css' : 'js'
+     }
    }
    
    export class ModuleGraph {
@@ -571,6 +748,9 @@ export async function createServer(
      }
    
      /**
+      * Update the module graph based on a module's updated imports information
+      * If there are dependencies that no longer have any importers, they are
+      * returned as a Set.
       *
       * 更新模块依赖信息
       * @param {ModuleNode} mod 指定模块A
@@ -619,7 +799,7 @@ export async function createServer(
      }
    }
    ```
-   
+
 6. 调用 createPluginContainer 生成插件容器，这里很明确地指明了 vite 插件跟 rollup 插件的联系；
 
    ```typescript
@@ -761,7 +941,7 @@ export async function createServer(
 
 再回头看整个流程概览图：
 
-![](https://github.com/Jouryjc/images/blob/main/img/staring-overview.png?raw=true)
+![](./img/starting/staring-overview.png)
 
 当我们敲下 vite 命令后，vite 在短短时间内做了解析配置、创建 http server、创建 ws、创建文件监听器、初始化模块依赖图、创建插件、预构建、启动服务等任务。
 

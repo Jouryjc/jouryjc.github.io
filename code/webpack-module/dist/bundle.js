@@ -1,128 +1,22 @@
-          /**
-           * modules是存放所有模块的数组
-           */
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/  // 缓存对象，将已经加载过的模块存到这里，提升性能
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	/**
-           * 模块加载函数
-           * @param {Number} moduleId - 数组的下标index
-           */
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-            // 已经加载过的模块，直接从缓存对象上面获取
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-
-/******/ 		// Create a new module (and put it into the cache)
-            // 如果模块不在缓存对象中，说明没有加载过
-            // 新建一个模块，并存到缓存中
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,  // 模块id，即数组下标index
-/******/ 			l: false,     // l=>loaded 是否已经加载过，首次这里为false
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-            // 从模块数组中拿到 index = moduleId 的项，再调用该函数
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-            // 将是否加载过的标志设置为 true
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-            // 返回模块的导出值
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-          // 将模块数组挂在 m 上
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-          // 将缓存对象挂在 c 上
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-          // 在 exports 对象上定义属性 __esModule 和 Symbol.toStringTag
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-          // 兼容性处理
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-          // 挂载 hasOwnProperty
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-          // webpack配置中的 publicPath
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-          // 加载入口模块并将 exports 对象返回去
-          // 后面的 s 可以理解为 start，其实模块的意思
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/main.js");
-/******/ })
-/************************************************************************/
-/******/ ({
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/a.js":
 /*!******************!*\
   !*** ./src/a.js ***!
   \******************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-        "use strict";
-        __webpack_require__.r(__webpack_exports__);
-        console.log('this is file a');
-
-        // a 模块 export default 值为1
-        /* harmony default export */ __webpack_exports__["default"] = (1);
-        //# sourceURL=webpack:///./src/a.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconsole.log('this is file a');\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (1);\n\n//# sourceURL=webpack://webpack-module/./src/a.js?");
 
 /***/ }),
 
@@ -130,14 +24,9 @@
 /*!******************!*\
   !*** ./src/b.js ***!
   \******************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-        console.log('this is file b');
-        module.exports = function () {
-          console.log('this is function b');
-        };
-        //# sourceURL=webpack:///./src/b.js?");
+eval("console.log('this is file b');\n\nvar a = __webpack_require__(/*! ./a */ \"./src/a.js\");\n\nmodule.exports = function () {\n  console.log('this is function b');\n};\n\n//# sourceURL=webpack://webpack-module/./src/b.js?");
 
 /***/ }),
 
@@ -145,16 +34,74 @@
 /*!*********************!*\
   !*** ./src/main.js ***!
   \*********************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-        "use strict";
-        __webpack_require__.r(__webpack_exports__);
-        /* harmony import */ var _a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./a */ "./src/a.js");
-        var b = __webpack_require__(/*! ./b */ "./src/b.js");
-        console.log(_a__WEBPACK_IMPORTED_MODULE_0__["default"], b);
-        //# sourceURL=webpack:///./src/main.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./a */ \"./src/a.js\");\n\n\nvar b = __webpack_require__(/*! ./b */ \"./src/b.js\");\n\nPromise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./a */ \"./src/a.js\")).then(function (moduleA) {\n  console.log(moduleA);\n});\nconsole.log(_a__WEBPACK_IMPORTED_MODULE_0__[\"default\"], b);\n\n//# sourceURL=webpack://webpack-module/./src/main.js?");
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/main.js");
+/******/ 	
+/******/ })()
+;

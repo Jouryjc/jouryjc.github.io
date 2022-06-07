@@ -1,6 +1,6 @@
 # Esbuild 是如何进行预构建的？
 
-大家好，我是码农小余。我们知道，首次执行 `vite` 时，服务启动后会对 node_modules 模块和配置 optimizeDeps 的目标进行预构建。本节我们就去探索预构建的流程。
+大家好，我是码农小余。前面我们明白了服务端与客户端是如何配合实现 bundless module 的 HMR。我们知道，首次执行 `vite` 时，服务启动后会对 node_modules 模块和配置 optimizeDeps 的目标进行预构建。这节我们就去探索预构建的流程。
 
 按照惯例，先准备好一个例子。本文我们用 vue 的模板去初始化 DEMO：
 
@@ -57,14 +57,14 @@ const runOptimize = async () => {
 
 入口处将配置 config 和是否强制缓存的标记（通过 --force 传入或者调用 restart API）传到 optimizeDeps。optimizeDeps 逻辑比较长，我们先通过流程图对整个流程有底之后，再按照功能模块去阅读源码。
 
-![](img/pre-bundling/optimizeDeps-process.png)
+![](./img/pre-bundling/optimizeDeps-process.png)
 
 简述一下整个预构建流程：
 
 1. 首先会去查找缓存目录（默认是 node_modules/.vite）下的 _metadata.json 文件；然后找到当前项目依赖信息（xxx-lock 文件）拼接上部分配置后做哈希编码，最后对比缓存目录下的 hash 值是否与编码后的 hash 值一致，一致并且没有开启 force 就直接返回预构建信息，结束整个流程；
-2. 如果开启了 force 或者项目依赖有变化的情况，先保证缓存目录干净（node_modules/.vite 下没有多余文件），在 node_modules/.vite/package.json 文件写入 `type: module` 配置。这就是为什么 vite 会将预构建产物视为 ESM 的原因。
-3. 分析入口，依次查看是否存在 optimizeDeps.entries、build.rollupOptions.input、*.html，匹配到就通过 dev-scan 的插件寻找需要预构建的依赖，输出 deps 和 missing，并重新做 hash 编码；
-4. 最后使用 [es-module-lexer](https://www.npmjs.com/package/es-module-lexer) 对 deps 模块进行模块化分析，拿到分析结果做预构建。构建结果将合并内部模块、转换 CommonJS 依赖。最后更新 data.optimizeDeps 并将结果写入到缓存文件。
+2. 如果开启了 force 或者项目依赖有变化的情况，先保证缓存目录干净（node_modules/.vite 下没有多余文件），在 node_modules/.vite/package.json 文件写入 `type: module` 配置。这就是为什么 vite 会将全部模块的构建产物视为 ESM 的原因。
+2. 分析入口，通过 dev-scan 的插件寻找需要预构建的依赖，输出 deps；
+3. 最后使用 [es-module-lexer](https://www.npmjs.com/package/es-module-lexer) 对 deps 模块进行模块化分析，拿到分析结果做预构建。构建结果将合并内部模块、转换 CommonJS 依赖。最后更新 data.optimizeDeps 并将结果写入到缓存文件。
 
 ## 剥丝抽茧
 
@@ -161,9 +161,7 @@ function getDepHash(root: string, config: ResolvedConfig): string {
 }
 ```
 
-上述代码先去 cacheDir 目录下获取 _metadata.json 的信息，然后计算当前依赖的 hash 值，计算过程主要是通过 xxx-lock 文件，结合 config 中**跟依赖相关的部分配置**去计算 hash 值。最后判断如果服务没有开启 force （即刷新缓存的参数）时，去读取缓存元信息文件中的 hash 值，结果相同就直接返回缓存元信息文件即 _metadata.json 的内容；
-
-否则就判断是否存在 cacheDir（默认情况下是 node_modules/.vite），存在就清空目录文件，不存在就创建缓存目录；最后在缓存目录下创建 package.json 文件并写入 type: module 信息，这就是为什么预构建后的依赖会被识别成 ESM 的原因。
+先去 cacheDir 目录下获取 _metadata.json 的信息，然后计算当前依赖的 hash 值，计算过程主要是通过 xxx-lock 文件，结合 config 中**跟依赖相关的部分配置**去计算 hash 值。最后判断如果服务没有开启 force （即刷新缓存的参数）时，去读取缓存元信息文件中的 hash 值，结果相同就直接返回缓存元信息文件即 _metadata.json 的内容；否则就判断是否存在 cacheDir（默认情况下是 node_modules/.vite），存在就清空目录文件，否则就创建缓存目录；最后在缓存目录下创建 package.json 文件并写入 type: module 信息，这就是为什么预构建后的依赖会被识别成 ESM 的原因。
 
 在开启了 force 参数或者依赖前后的 hash 值不相同时，就会去扫描并分析依赖，这就进入下一个阶段。
 
@@ -515,9 +513,9 @@ function esbuildScanPlugin(
 }
 ```
 
-阅读 esbuild 的 dep-scan 插件代码需要 esbuild plugin 的[前置知识](https://esbuild.github.io/plugins/)，对比于 rollup，esbuild 插件有很多相似之处，因为 API 简单也会更加好理解。
+阅读 esbuild 的 dep-scan 插件代码需要 esbuild plugin 的[前置知识](https://esbuild.github.io/plugins/)，对比于 rollup，esbuild 插件有很多相似之处，也会更加好理解。
 
-上述代码先定义了一堆正则表达式，具体的匹配内容已经在注释中声明。可以看到，扫描依赖核心就是**对依赖进行正则匹配（esbuild 的 onResolve），然后对于语法不支持的文件做处理（esbuild onLoad）**。接下来我们就从 DEMO 入手，来完整地执行一遍 esbuild 的构建流程。这样读者既能深入了解 vite 预构建时模块的构建流程，也能学会 esbuild 插件的开发。我们先来看一下 DEMO 的模块依赖图：
+上述代码先定义了一堆正则表达式，具体的匹配内容已经在注释中声明。可以看到，扫描依赖核心就是**对依赖进行正则匹配（esbuild 的 onResolve），然后对于不支持的文件做处理（esbuild onLoad）**。接下来我们就从 DEMO 入手，来完整地执行一遍 esbuild 的构建流程。这样读者既能深入了解 vite 预构建时模块的构建流程，也能学会 esbuild 插件的开发。我们先来看一下 DEMO 的模块依赖图：
 
 ![](./img/pre-bundling/esbuild-scan-deps-demo-number.png)
 
@@ -625,7 +623,7 @@ build.onLoad(
 )
 ```
 
-当入口是 index.html 时，命中了 build.onResolve({ filter: htmlTypesRE }, ...) 这条解析规则，通过 resolve 处理后返回 index.html 的绝对路径，并将 namespace 标记为 html，也就是归成 html 类。后续匹配上 html 的 load 钩子，就会进入回到函数中。
+当入口是 index.html 时，命中了 build.onResolve({ filter: htmlTypesRE }, ...) 这条解析，通过 resolve 处理后返回 index.html 的绝对路径，并将 namespace 标记为 html，也就是归成 html 类。后续匹配上 html 的 load 钩子，就会进入回到函数中。
 
 build.onLoad({ filter: htmlTypesRE, namespace: 'html' }, ...) 也是通过 filter 和 namespace 去匹配文件。读取 index.html 文件内容之后，通过大量的正则表达式去匹配引入内容。重点在于 `<script type="module" src="/src/main.js"></script>` 这段代码会被解析成 `import '/src/main.js'`，这就会进入下一个 resolve、load 过程。在进入 JS_TYPE 的解析之前，有一个全匹配 resolver 先提出来：
 
@@ -698,7 +696,7 @@ import '../lib/index'
 createApp(App).mount('#app')
 ```
 
-接着就会处理 `vue`、`./App.vue`、`../lib/index` 3个依赖。
+接着就会处理 vue、./App.vue，../lib/index 3个依赖。
 
 **对于 `vue` 依赖**，会跟 [/^[\w@][^:]/](https://regex101.com/r/5A7KFx/1)  匹配。
 
@@ -1166,6 +1164,8 @@ export function esbuildDepPlugin(
 input 信息太长，只打印了搜查的依赖总长度是 692，最后构建的产物从上图能够看到对于 lodash-es 这种包，会将依赖全部打成一个包，减少 http 次数。
 
 最后的最后，将 deps 信息更新到 data.optimized 并写入到缓存文件目录。整个预构建流程就结束了。
+
+## 总结
 
 
 
