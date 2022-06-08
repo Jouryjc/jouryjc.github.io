@@ -333,12 +333,77 @@ release 流程执行的是：
 esno scripts/release.ts && git push --follow-tags
 ```
 
-看到 `scripts/release.ts ` :
+查阅 `scripts/release.ts ` :
 
 ```typescript
+import { execSync } from 'child_process'
+import { readJSONSync } from 'fs-extra'
+
+// 读取 package.json 中的 version 字段
+const { version: oldVersion } = readJSONSync('package.json')
+
+// 自动化发布过程
+execSync('npx bumpp', { stdio: 'inherit' })
+
+// 再次读取 version 字段
+const { version } = readJSONSync('package.json')
+// 比较新旧版本、如果一致就退出进程
+if (oldVersion === version) {
+  console.log('canceled')
+  process.exit()
+}
+// 类型声明构建
+execSync('npm run build:types', { stdio: 'inherit' })
+// 执行更新
+execSync('npm run update', { stdio: 'inherit' })
+// add
+execSync('git add .', { stdio: 'inherit' })
+// commit
+execSync(`git commit -m "chore: release v${version}"`, { stdio: 'inherit' })
+// 打tag
+execSync(`git tag -a v${version} -m "v${version}"`, { stdio: 'inherit' })
 ```
 
+release 流程非常清晰，上述代码中有一个包引起我的注意力：[bumpp](https://www.npmjs.com/package/bumpp) 基于 [`version-bump-prompt`](https://github.com/JS-DevTools/version-bump-prompt) 添加了以下特性：
 
+- 重命名为 bumpp ，可以直接使用 `npx bumpp`；
+- 提供 ESM 和 CJS 构建包；
+- 添加一个新参数 `--execute` 以在提交前执行命令;
+
+最后来看 publish 过程：
+
+```sh
+esno scripts/publish.ts
+```
+
+流程如下：
+
+```typescript
+import { packages } from '../meta/packages'
+
+// 执行包的构建
+execSync('npm run build', { stdio: 'inherit' })
+
+let command = 'npm publish --access public'
+
+// 如果 version 包含 beta 就在发布命令上添加 tag
+if (version.includes('beta'))
+  command += ' --tag beta'
+
+// 依次发布每一个包
+for (const { name } of packages) {
+  execSync(command, { stdio: 'inherit', cwd: path.join('packages', name, 'dist') })
+  consola.success(`Published @vueuse/${name}`)
+}
+```
+
+publish 先执行包的构建，然后定义发布命令，如果 version 中包含 beta 字段，就在发布参数上打上 tag，可以在终端执行 npm info @vueuse/core 查看 beta 包：
+
+![](img/beta-packages.png)
+
+最后循环包数据 packages 依次执行 `npm publish --access public ` 进行发包。整个流程可以通过 vueuse 的 [publish action](https://github.com/vueuse/vueuse/runs/6670930037?check_suite_focus=true) 进一步查看。
+
+## 总结
 
 
 
