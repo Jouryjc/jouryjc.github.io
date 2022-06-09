@@ -53,7 +53,7 @@
 - update:xx 用于更新 README、下载量、贡献者等信息；
 - watch 支持热更的构建；
 
-接下来我们重点了解一些常用和复杂的脚本——update、build、release、test。
+接下来我们重点了解一些常用和复杂的脚本——update、build、release、size。
 
 ## update
 
@@ -325,7 +325,7 @@ rollup 的配置只截取了部分配置，重点学习 rollup 构建中使用 e
 
 构建完了，接下来就看看发版(release)、发布(build)流程
 
-## release、publish
+## release
 
 release 流程执行的是：
 
@@ -370,6 +370,8 @@ release 流程非常清晰，上述代码中有一个包引起我的注意力：
 - 提供 ESM 和 CJS 构建包；
 - 添加一个新参数 `--execute` 以在提交前执行命令;
 
+## publish
+
 最后来看 publish 过程：
 
 ```sh
@@ -403,7 +405,60 @@ publish 先执行包的构建，然后定义发布命令，如果 version 中包
 
 最后循环包数据 packages 依次执行 `npm publish --access public ` 进行发包。整个流程可以通过 vueuse 的 [publish action](https://github.com/vueuse/vueuse/runs/6670930037?check_suite_focus=true) 进一步查看。
 
-## 总结
+## size
+
+VueUse 有一个完全 tree shaking 的特性，并展示了每个函数构建后的体积。[export-size](https://vueuse.org/export-size.html) 页面可以查看到每个函数的大小：
+
+![](img/export-size.png)
+
+这是怎么实现的呢？答案是在 scripts 中可以看到一条 `esno scripts/export-size.ts` 的脚本：
+
+```typescript
+import { markdownTable } from 'markdown-table'
+import { getExportsSize } from 'export-size'
+import filesize from 'filesize'
+import fs from 'fs-extra'
+import { version } from '../package.json'
+import { packages } from '../meta/packages'
+
+async function run() {
+  // ...
+
+  for (const pkg of [...packages.slice(1), packages[0]]) {
+    const { exports, packageJSON } = await getExportsSize({
+      pkg: `./packages/${pkg.name}/dist`,
+      output: false,
+      bundler: 'rollup',
+      external: ['vue-demi', ...(pkg.external || [])],
+      includes: ['@vueuse/shared'],
+    })
+
+    // ...
+
+    md += markdownTable([
+      ['Function', 'min+gzipped'],
+      ...exports.map((i) => {
+        return [`\`${i.name}\``, filesize(i.minzipped)]
+      }),
+    ])
+
+    md += '\n\n'
+  }
+  
+  await fs.writeFile('packages/export-size.md', md, 'utf-8')
+}
+```
+
+遍历 packages 列表，调用 `getExportsSize` 依次生成每个包下函数的信息：
+
+![](img/export.png)
+
+然后通过以下两个包的处理
+
+- [filesize](https://www.npmjs.com/package/filesize) 用于显示可读的文件体积，并且支持国际化、四舍五入等配置；
+- [markdownTable](https://www.npmjs.com/package/markdown-table) 用于生成 markdown 格式的表格字符串；
+
+最终将 md 字符串写入 export-size.md。
 
 
 
